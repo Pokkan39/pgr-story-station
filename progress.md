@@ -446,3 +446,23 @@
   - `.gitignore`：排除验收图与工具目录。
   - `progress.md`：本轮记录。
 - 回滚方式：删除 GitHub 仓 `Pokkan39/pgr-story-station`；本地可 `git remote remove origin`。不删本机站点文件。
+
+## 2026-09-12 - Task: 进站节点连线接入动画
+
+### What was done
+进站加一层黑底红线节点连线：中心点向外画线、节点点亮，再出「过境 / MINDTRACE」。每次刷新都播。SKIP、点击、Esc 可跳过，随后进 DATA。减弱动画时只留静态图。不套明日方舟 / 莱茵生命标识。
+
+### Testing
+- `node --check app.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=link2`：入场可见红线节点与字标；点 SKIP 后 `link-gate` hidden，进入 DATA。
+- 截图：`.verify-shots/live-link-gate.png`、`.verify-shots/live-link-skip.png`。
+
+### Notes
+- 改动文件清单：
+  - `index.html`：进站接入层。
+  - `styles.css`：红线画线、节点点亮、减弱动画。
+  - `app.js`：每次进站播接入，SKIP 后进 DATA。
+  - `docs/story-station.md`：写明接入层边界。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-link-gate.png`、`.verify-shots/live-link-skip.png`：验收截图，非正式产品。
+- 回滚方式：还原 `index.html`、`styles.css`、`app.js`、`docs/story-station.md` 到「自建仓上传并开 GitHub Pages」版本。

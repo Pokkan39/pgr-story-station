@@ -10,7 +10,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
+<body class="is-linking">
+  <div class="link-gate" id="link-gate" role="dialog" aria-modal="true" aria-labelledby="link-gate-title">
+    <svg class="link-gate__map" viewBox="0 0 100 100" aria-hidden="true">
+      <g class="link-gate__lines">
+        <line pathLength="1" x1="50" y1="50" x2="50" y2="14" />
+        <line pathLength="1" x1="50" y1="50" x2="22" y2="28" />
+        <line pathLength="1" x1="50" y1="50" x2="78" y2="28" />
+        <line pathLength="1" x1="50" y1="50" x2="12" y2="52" />
+        <line pathLength="1" x1="50" y1="50" x2="88" y2="52" />
+        <line pathLength="1" x1="50" y1="50" x2="24" y2="76" />
+        <line pathLength="1" x1="50" y1="50" x2="76" y2="76" />
+        <line pathLength="1" x1="50" y1="50" x2="50" y2="90" />
+        <line pathLength="1" x1="22" y1="28" x2="50" y2="14" />
+        <line pathLength="1" x1="78" y1="28" x2="50" y2="14" />
+        <line pathLength="1" x1="22" y1="28" x2="12" y2="52" />
+        <line pathLength="1" x1="78" y1="28" x2="88" y2="52" />
+        <line pathLength="1" x1="24" y1="76" x2="50" y2="90" />
+        <line pathLength="1" x1="76" y1="76" x2="50" y2="90" />
+      </g>
+      <g class="link-gate__nodes">
+        <circle class="link-gate__node is-core" cx="50" cy="50" r="1.8" />
+        <circle class="link-gate__node" cx="50" cy="14" r="1.15" />
+        <circle class="link-gate__node" cx="22" cy="28" r="1.15" />
+        <circle class="link-gate__node" cx="78" cy="28" r="1.15" />
+        <circle class="link-gate__node" cx="12" cy="52" r="1.15" />
+        <circle class="link-gate__node" cx="88" cy="52" r="1.15" />
+        <circle class="link-gate__node" cx="24" cy="76" r="1.15" />
+        <circle class="link-gate__node" cx="76" cy="76" r="1.15" />
+        <circle class="link-gate__node" cx="50" cy="90" r="1.15" />
+      </g>
+    </svg>
+    <p class="link-gate__brand" id="link-gate-title">过境</p>
+    <p class="link-gate__code">MINDTRACE</p>
+    <p class="link-gate__status" id="link-gate-status">SCAN</p>
+    <button type="button" class="link-gate__skip" id="link-gate-skip">SKIP</button>
+  </div>
   <div class="page">
     <header class="site-rail">
       <a class="brand" href="#operator">
@@ -39,7 +74,7 @@
     </header>
 
     <main id="top">
-      <section class="hero-operator is-booting" id="operator" aria-labelledby="hero-name-cn">
+      <section class="hero-operator" id="operator" aria-labelledby="hero-name-cn">
         <div class="hero-operator__art" id="hero-art">
           <span class="hero-operator__scan" aria-hidden="true"></span>
           <span class="hero-operator__figure" id="hero-figure">

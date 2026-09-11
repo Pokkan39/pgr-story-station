@@ -2302,10 +2302,60 @@
       renderStageList();
     }
     markMapReadState();
-    window.setTimeout(() => {
-      const hero = $("operator");
-      if (hero) hero.classList.remove("is-booting");
-    }, 720);
+    startLinkGate();
+  }
+
+  function startLinkGate() {
+    const gate = $("link-gate");
+    const skip = $("link-gate-skip");
+    const status = $("link-gate-status");
+    const hero = $("operator");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let closed = false;
+    const bootHero = () => {
+      if (!hero) return;
+      hero.classList.add("is-booting");
+      window.setTimeout(() => hero.classList.remove("is-booting"), 720);
+    };
+    const close = () => {
+      if (closed) return;
+      closed = true;
+      if (status) status.textContent = "READY";
+      document.body.classList.remove("is-linking");
+      if (!gate) {
+        bootHero();
+        return;
+      }
+      gate.classList.add("is-out");
+      window.setTimeout(() => {
+        gate.hidden = true;
+        bootHero();
+      }, reduce ? 120 : 420);
+    };
+    if (!gate) {
+      close();
+      return;
+    }
+    document.body.classList.add("is-linking");
+    const words = ["SCAN", "LINK", "HANDSHAKE", "READY"];
+    let i = 0;
+    const tick = window.setInterval(() => {
+      i += 1;
+      if (status && words[i]) status.textContent = words[i];
+      if (i >= words.length - 1) window.clearInterval(tick);
+    }, reduce ? 70 : 520);
+    const finish = (e) => {
+      if (e && (e.key === " " || e.key === "Enter" || e.key === "Escape")) e.preventDefault();
+      window.clearInterval(tick);
+      close();
+    };
+    window.setTimeout(finish, reduce ? 240 : 2680);
+    if (skip) skip.addEventListener("click", finish);
+    gate.addEventListener("click", finish);
+    document.addEventListener("keydown", (e) => {
+      if (closed) return;
+      if (e.key === "Escape" || e.key === "Enter" || e.key === " ") finish(e);
+    });
   }
 
   if (document.readyState === "loading") {
