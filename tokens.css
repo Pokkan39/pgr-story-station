@@ -1,0 +1,99 @@
+:root {
+  /* Color — Signal Archive (OKLCH) */
+  --bg: oklch(8% 0.006 250);
+  --bg-elevated: oklch(14% 0.01 248);
+  --bg-panel: oklch(16% 0.012 246);
+  --bg-inset: oklch(6% 0.006 252);
+  --paper: oklch(92% 0.012 95);
+  --paper-2: oklch(86% 0.014 95);
+  --paper-3: oklch(78% 0.016 90);
+  --fg: oklch(92% 0.012 95);
+  --fg-muted: oklch(72% 0.02 230);
+  --fg-faint: oklch(55% 0.018 240);
+  --ink: oklch(18% 0.018 250);
+  --ink-soft: oklch(28% 0.02 248);
+  --line: oklch(42% 0.025 235);
+  --line-strong: oklch(58% 0.03 230);
+  --line-bright: oklch(72% 0.04 220);
+  --accent-cyan: oklch(78% 0.09 210);
+  --accent-cyan-dim: oklch(55% 0.06 210);
+  --cyan-hot: oklch(84% 0.12 205);
+  --accent-fade: oklch(78% 0.09 210 / 0.18);
+  --accent-red: oklch(62% 0.18 25);
+  --accent-red-dim: oklch(45% 0.12 25);
+  --red-hot: oklch(68% 0.2 28);
+  --accent-amber: oklch(78% 0.1 85);
+  --success: oklch(72% 0.12 145);
+  --error: oklch(60% 0.18 25);
+  --focus-ring: oklch(78% 0.09 210);
+  --map-path: oklch(48% 0.04 220);
+  --map-node: oklch(70% 0.05 210);
+  --map-node-active: oklch(78% 0.09 210);
+  --map-node-active-fill: oklch(30% 0.04 210);
+  --overlay: oklch(10% 0.02 250 / 0.72);
+  --scrim: oklch(12% 0.02 250 / 0.85);
+  --header-glass: oklch(18% 0.018 250 / 0.92);
+  --selection: oklch(55% 0.06 210 / 0.45);
+  --line-soft: oklch(42% 0.025 235 / 0.45);
+  --line-soft-2: oklch(42% 0.025 235 / 0.4);
+  --red-glow: oklch(62% 0.18 25 / 0.25);
+  --shadow-panel: 0 0 0 1px oklch(42% 0.025 235 / 0.6), 0 12px 32px oklch(8% 0.02 250 / 0.45);
+  --shadow-hard: 0 18px 40px oklch(8% 0.02 250 / 0.55), 0 0 0 1px oklch(72% 0.04 220 / 0.18);
+  --shadow-focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--focus-ring);
+
+  /* Type — max 3 families */
+  --font-display: "Bricolage Grotesque", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Serif 4", "Times New Roman", "Noto Serif SC", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Code", "Consolas", "Courier New", monospace;
+
+  /* Type scale */
+  --fs-xs: 0.6875rem;
+  --fs-sm: 0.8125rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.5rem;
+  --fs-3xl: 3.5rem;
+  --lh-tight: 1.15;
+  --lh-snug: 1.35;
+  --lh-body: 1.65;
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.08em;
+  --tracking-caps: 0.14em;
+
+  /* Spacing — 4pt grid */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --gutter: 1rem;
+  --page-pad: clamp(1rem, 3vw, 2rem);
+  --max-w: 74rem;
+
+  /* Radius / motion */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --dur-fast: 120ms;
+  --dur-med: 220ms;
+  --dur-slow: 360ms;
+  --dur-boot: 480ms;
+
+  /* Layout */
+  --col-gap: var(--gutter);
+  --nav-h: 3.75rem;
+  --status-h: 1.75rem;
+  --hero-min: 100vh;
+  --pgr-red: oklch(58% 0.24 25);
+  --pgr-red-line: oklch(58% 0.24 25);
+}
