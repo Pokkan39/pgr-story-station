@@ -431,3 +431,18 @@
   - `progress.md`：本轮记录。
   - `.verify-shots/live-interlude-31.png`、`.verify-shots/live-net-9.png`：验收截图，非正式产品。
 - 回滚方式：删除本轮新增的间章封面与四张关系网立绘；还原 `interludes.js`、`index.html`、`app.js`、`docs/assets.md`、`docs/story-station.md`、`docs/portraits.md` 到「用本地美术库补主线缺封面」版本。不触碰 F 盘剧情回顾原目录。
+
+## 2026-09-12 - Task: 自建仓上传并开 GitHub Pages
+
+### What was done
+本地 `F:\pgr-story-station` 初始化 git，推到公开仓 `Pokkan39/pgr-story-station`，Pages 从 `main` 根目录发布。未灌官方正文。验收截图、`.narrafork`、`desktop.png` 未入库。
+
+### Testing
+- `git ls-remote origin` 可见 `main`。
+- `https://pokkan39.github.io/pgr-story-station/` 返回 200，正文为站点 `index.html`。
+
+### Notes
+- 改动文件清单：
+  - `.gitignore`：排除验收图与工具目录。
+  - `progress.md`：本轮记录。
+- 回滚方式：删除 GitHub 仓 `Pokkan39/pgr-story-station`；本地可 `git remote remove origin`。不删本机站点文件。
