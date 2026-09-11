@@ -48,13 +48,14 @@
   </div>
   <div class="page">
     <header class="site-rail">
-      <a class="brand" href="#operator">
+      <a class="brand" href="#home">
         <span class="brand__mark">过境</span>
         <span class="brand__sub">MINDTRACE</span>
       </a>
       <nav class="site-rail__nav" aria-label="主导航">
-        <a class="site-rail__item is-active" href="#operator">DATA</a>
+        <a class="site-rail__item is-active" href="#home">HOME</a>
         <a class="site-rail__item" href="#story">STORY</a>
+        <a class="site-rail__item" href="#operator">DATA</a>
         <a class="site-rail__item" href="#network">NET</a>
         <a class="site-rail__item" href="#board">BOARD</a>
       </nav>
@@ -68,60 +69,79 @@
       <p class="site-rail__status" role="status" aria-live="polite">
         <span class="status-band__pulse">DEMO</span>
         <span id="storage-status">LOCAL CACHE READY</span>
-        <span id="dossier-status">DATA / STANDBY</span>
-        <strong id="nav-dossier-title">LUCIA · PLUME</strong>
+        <span id="dossier-status">HOME / STANDBY</span>
+        <strong id="nav-dossier-title">MINDTRACE</strong>
       </p>
     </header>
 
     <main id="top">
+      <section class="command" id="home" aria-labelledby="command-title">
+        <p class="hero-page-title">HOME</p>
+        <p class="hero-select-mark">SELECT OPERATION</p>
+        <div class="command__stage">
+          <div class="command-ops" id="command-grid">
+            <p class="command__kicker">COMMAND</p>
+            <h1 class="command__title" id="command-title">选择下一步</h1>
+            <button type="button" class="command-op is-on" id="continue-btn" data-go="continue" data-preview="./assets/covers/prologue.png" style="--i:0">
+              <span class="command-op__code">01</span>
+              <strong id="continue-action">开始剧情</strong>
+              <span id="continue-summary">尚未记录进度。从序章开始一段线性演出。</span>
+            </button>
+            <a class="command-op" href="#story" data-go="story" data-preview="./assets/covers/ch01-graffiti.png" style="--i:1">
+              <span class="command-op__code">02</span>
+              <strong>剧情回顾</strong>
+              <span>主线 / 间章 / 活动，点章看关卡</span>
+            </a>
+            <a class="command-op" href="#operator" data-go="data" data-preview="./assets/portraits/lucia-plume.png" style="--i:2">
+              <span class="command-op__code">03</span>
+              <strong>机体档案</strong>
+              <span>灰鸦小队选择台，点谁谁走上前</span>
+            </a>
+            <a class="command-op" href="#network" data-go="net" data-preview="./assets/portraits/vera-rozen.png" style="--i:3">
+              <span class="command-op__code">04</span>
+              <strong>关系网</strong>
+              <span>点角色进入对应个人剧情</span>
+            </a>
+            <a class="command-op" href="#board" data-go="board" data-preview="./assets/covers/event-whale.jpg" style="--i:4">
+              <span class="command-op__code">05</span>
+              <strong>讨论区</strong>
+              <span>看完可以发帖，写入本机</span>
+            </a>
+            <div class="progress command__progress" aria-labelledby="progress-label">
+              <div class="progress__meta">
+                <span id="progress-label">阅读进度</span>
+                <span id="progress-value">0 / 6</span>
+              </div>
+              <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+                <div class="progress__fill" id="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+          <aside class="command-preview" id="command-preview" aria-hidden="true">
+            <img id="command-preview-img" src="./assets/covers/prologue.png" alt="">
+            <p class="command-preview__code" id="command-preview-code">01</p>
+          </aside>
+        </div>
+      </section>
+
       <section class="hero-operator" id="operator" aria-labelledby="hero-name-cn">
-        <div class="hero-operator__art" id="hero-art">
+        <div class="hero-operator__art is-waiting" id="hero-art">
           <span class="hero-operator__scan" aria-hidden="true"></span>
-          <span class="hero-operator__figure" id="hero-figure">
-            <img id="hero-portrait" src="./assets/portraits/lucia-plume.png" alt="露西亚 · 鸿羽立绘" width="1000" height="1080">
-          </span>
+          <div class="hero-lineup" id="hero-lineup" aria-label="CHARACTER SELECT"></div>
 
           <p class="hero-page-title">DATA</p>
           <p class="hero-select-mark">CHARACTER SELECT</p>
-          <p class="hero-page-index" id="hero-tag-id">01 / 05</p>
+          <p class="hero-page-index" id="hero-tag-id">00 / 05</p>
 
           <div class="hero-operator__copy" id="hero-copy">
-            <p class="hero-cv">CV. INTRO.</p>
-            <p class="hero-operator__en" id="hero-name-en">LUCIA</p>
-            <h1 class="hero-operator__cn" id="hero-name-cn">露西亚</h1>
-            <p class="hero-operator__frame" id="hero-frame">PLUME / 鸿羽</p>
-            <p class="hero-operator__lede" id="hero-lede">灰鸦小队队长。空中花园依据灰鸦作战数据研制的最新机兵「鸿羽」。非官方演示。</p>
-            <p class="hero-operator__spec"><span id="hero-faction">灰鸦小队</span> · <span id="hero-class">进攻型 · S</span> · <span id="hero-link">主线 / 序章</span></p>
-            <div class="hero__cta">
-              <button type="button" class="btn btn--primary" id="continue-btn">开始剧情</button>
-              <a class="btn btn--ghost" href="#story">选择章节</a>
-            </div>
-          </div>
-
-          <div class="hero-squad" id="hero-squad" aria-label="CHARACTER SELECT">
-            <button type="button" class="hero-squad__btn is-active" data-construct="lucia-plume" aria-pressed="true">露西亚 · 鸿羽</button>
-            <button type="button" class="hero-squad__btn" data-construct="lucia-lotus" aria-pressed="false">露西亚 · 红莲</button>
-            <button type="button" class="hero-squad__btn" data-construct="liv-eclipse" aria-pressed="false">丽芙 · 蚀暗</button>
-            <button type="button" class="hero-squad__btn" data-construct="lee-palefire" aria-pressed="false">里 · 异火</button>
-            <button type="button" class="hero-squad__btn" data-construct="nanami-storm" aria-pressed="false">七实 · 风暴</button>
+            <p class="hero-cv" id="hero-cv">SELECT</p>
+            <p class="hero-operator__en" id="hero-name-en">UNIT</p>
+            <h1 class="hero-operator__cn" id="hero-name-cn">选择机体</h1>
+            <p class="hero-operator__frame" id="hero-frame">CHARACTER SELECT</p>
+            <p class="hero-operator__lede" id="hero-lede">灰鸦小队已就位。点选一名构造体，再进入剧情。</p>
+            <p class="hero-operator__spec"><span id="hero-faction">空中花园</span> · <span id="hero-class">DATA</span> · <span id="hero-link">等待选择</span></p>
           </div>
         </div>
-
-        <aside class="continue-strip" aria-labelledby="continue-title">
-          <div class="continue-strip__copy">
-            <h2 id="continue-title">继续剧情</h2>
-            <p id="continue-summary">尚未记录进度。从序章开始一段线性演出。</p>
-          </div>
-          <div class="progress" aria-labelledby="progress-label">
-            <div class="progress__meta">
-              <span id="progress-label">阅读进度</span>
-              <span id="progress-value">0 / 6</span>
-            </div>
-            <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
-              <div class="progress__fill" id="progress-fill"></div>
-            </div>
-          </div>
-        </aside>
         <p class="hero-squad__credit">立绘来源：GRAY RAVENS Wiki 公开肖像。版权归库洛游戏所有。</p>
       </section>
 
@@ -203,8 +223,9 @@
         <div>
           <h2>结构索引</h2>
           <ul>
+            <li><a href="#home">指令台</a></li>
             <li><a href="#story">剧情回顾</a></li>
-            <li><a href="#stage">关卡入口</a></li>
+            <li><a href="#operator">机体档案</a></li>
             <li><a href="#network">关系网</a></li>
             <li><a href="#board">剧情讨论</a></li>
           </ul>

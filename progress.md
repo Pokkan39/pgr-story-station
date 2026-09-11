@@ -466,3 +466,80 @@
   - `progress.md`：本轮记录。
   - `.verify-shots/live-link-gate.png`、`.verify-shots/live-link-skip.png`：验收截图，非正式产品。
 - 回滚方式：还原 `index.html`、`styles.css`、`app.js`、`docs/story-station.md` 到「自建仓上传并开 GitHub Pages」版本。
+
+## 2026-09-12 - Task: DATA 改成机体选择台
+
+### What was done
+DATA 不再一进来就铺满单人立绘。灰鸦五人先排成选择台，右侧写「选择机体」。点到谁，谁才走到前台，其余人压暗。进度恢复不再抢前台。关系网角色不进首屏。
+
+### Testing
+- `node --check app.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=lineup3`：默认 waiting、标题「选择机体」、五人无选中。点丽芙后标题改「丽芙」，仅 `liv-eclipse` 前台。
+- 截图：`.verify-shots/live-lineup-wait.png`、`.verify-shots/live-lineup-liv.png`。
+
+### Notes
+- 改动文件清单：
+  - `index.html`：DATA 改成选择台容器。
+  - `app.js`：渲染五人排队，默认无人选中。
+  - `styles.css`：排队、点选前台、右侧文案让位。
+  - `docs/story-station.md`、`docs/pgr-layout.md`：写明首屏是选择台。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-lineup-wait.png`、`.verify-shots/live-lineup-liv.png`：验收截图，非正式产品。
+- 回滚方式：还原 `index.html`、`app.js`、`styles.css`、`docs/story-station.md`、`docs/pgr-layout.md` 到「进站节点连线接入动画」版本。
+
+## 2026-09-12 - Task: 首页改成指令台
+
+### What was done
+进站后先到 HOME 指令台：开始剧情 / 剧情回顾 / 机体档案 / 关系网 / 讨论区排好等人选。机体档案不再当首页，点进去才是灰鸦选择台。左侧菜单改为 HOME 当前项。
+
+### Testing
+- `node --check app.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=home1`：首屏标题「选择下一步」，五张操作卡，导航 HOME 高亮。点「机体档案」进入 DATA，五人排队、无人前台。
+- 截图：`.verify-shots/live-home-command.png`、`.verify-shots/live-home-to-data.png`。
+
+### Notes
+- 改动文件清单：
+  - `index.html`：新增 HOME 指令台，DATA 不再带继续条。
+  - `app.js`：进度文案写到指令台卡片；进站后指令台入场。
+  - `styles.css`：指令台网格与入场动效。
+  - `docs/story-station.md`、`docs/pgr-layout.md`：首屏改为指令台。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-home-command.png`、`.verify-shots/live-home-to-data.png`：验收截图，非正式产品。
+- 回滚方式：还原 `index.html`、`app.js`、`styles.css`、`docs/story-station.md`、`docs/pgr-layout.md` 到「DATA 改成机体选择台」版本。
+
+## 2026-09-12 - Task: HOME 改成左操作右预览的指令台
+
+### What was done
+HOME 不再用五张普通卡片。左侧是操作列表，右侧是对应预览图。悬停或点选项会换预览。机体档案仍是其中一个入口，不是首页。
+
+### Testing
+- `node --check app.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=lineup-h4`：首屏左列 01–05，默认预览序章封面；悬停「机体档案」预览切到鸿羽立绘，编号 03。无 `.command-card`。
+- 截图：`.verify-shots/live-home-ops.png`。
+
+### Notes
+- 改动文件清单：
+  - `index.html`：指令台改成左操作列表 + 右预览。
+  - `app.js`：接预览图/编号，悬停与点击切换。
+  - `styles.css`：去掉卡片墙，改操作台布局。
+  - `docs/story-station.md`、`docs/pgr-layout.md`：写明左操作右预览。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-home-ops.png`：验收截图，非正式产品。
+- 回滚方式：还原上述文件到「首页改成指令台」版本。
+
+## 2026-09-12 - Task: DATA 立绘拉回全高排队
+
+### What was done
+DATA 排队立绘不再挤成底下一排小半身，也不再发灰。五人按全高交叠站位，点谁谁走上前。左轨加浅遮罩，避免立绘压住菜单字。
+
+### Testing
+- 浏览器 `http://127.0.0.1:4173/?v=lineup-h4#operator`：五人立绘高度 900px，`filter: none`。点丽芙后标题改「丽芙」，仅 `liv-eclipse` 前台。
+- 截图：`.verify-shots/live-data-fullheight.png`、`.verify-shots/live-data-liv.png`。
+
+### Notes
+- 改动文件清单：
+  - `styles.css`：立绘按高度撑满并交叠；窄屏不再用旧 inset 裁脚；左轨浅遮罩。
+  - `docs/story-station.md`、`docs/pgr-layout.md`：写明全高排队、不发灰不裁脚。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-data-fullheight.png`、`.verify-shots/live-data-liv.png`：验收截图，非正式产品。
+- 回滚方式：还原 `styles.css`、`docs/story-station.md`、`docs/pgr-layout.md` 到「HOME 改成左操作右预览的指令台」版本。

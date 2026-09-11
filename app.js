@@ -134,6 +134,18 @@
     },
   };
 
+  const SELECT_UNITS = ["lucia-plume", "lucia-lotus", "liv-eclipse", "lee-palefire", "nanami-storm"];
+  const WAITING = {
+    en: "UNIT",
+    cn: "选择机体",
+    frame: "CHARACTER SELECT",
+    lede: "灰鸦小队已就位。点选一名构造体，再进入剧情。",
+    faction: "空中花园",
+    klass: "DATA",
+    link: "等待选择",
+    tagId: "00 / 05",
+  };
+
   const NODES = [
     {
       id: "n01",
@@ -519,7 +531,7 @@
   const state = {
     activeNodeId: null,
     readerNodeId: null,
-    activeConstructId: "lucia-plume",
+    activeConstructId: null,
     notes: [],
     readings: [],
     progress: { readIds: [], lastNodeId: null },
@@ -558,13 +570,18 @@
     els.dossierStatus = $("dossier-status");
     els.navDossierTitle = $("nav-dossier-title");
     els.continueSummary = $("continue-summary");
+    els.continueAction = $("continue-action");
     els.progressValue = $("progress-value");
     els.progressBar = $("progress-bar");
     els.progressFill = $("progress-fill");
     els.continueBtn = $("continue-btn");
+    els.commandGrid = $("command-grid");
+    els.commandPreviewImg = $("command-preview-img");
+    els.commandPreviewCode = $("command-preview-code");
     els.heroArt = $("hero-art");
     els.heroCopy = $("hero-copy");
-    els.heroPortrait = $("hero-portrait");
+    els.heroCv = $("hero-cv");
+    els.heroLineup = $("hero-lineup");
     els.heroNameEn = $("hero-name-en");
     els.heroNameCn = $("hero-name-cn");
     els.heroFrame = $("hero-frame");
@@ -573,7 +590,6 @@
     els.heroClass = $("hero-class");
     els.heroLink = $("hero-link");
     els.heroTagId = $("hero-tag-id");
-    els.heroSquad = $("hero-squad");
     els.editionRail = $("edition-rail-track");
     els.storyTabs = $("story-tabs");
     els.networkPanel = $("network");
@@ -774,15 +790,15 @@
 
     const resume = getNode(state.play.nodeId) || getNode(state.progress.lastNodeId) || getNode(NODES[0].id);
     if (!state.play.nodeId && count === 0) {
-      els.continueSummary.textContent = "尚未记录进度。从序章开始一段线性演出。";
-      els.continueBtn.textContent = "开始剧情";
+      if (els.continueSummary) els.continueSummary.textContent = "尚未记录进度。从序章开始一段线性演出。";
+      if (els.continueAction) els.continueAction.textContent = "开始剧情";
     } else if (count >= total && resume) {
-      els.continueSummary.textContent = `已读完 ${total} 个骨架节点。可从「${resume.code} ${resume.title}」重演。`;
-      els.continueBtn.textContent = "重演航线";
+      if (els.continueSummary) els.continueSummary.textContent = `已读完 ${total} 个骨架节点。可从「${resume.code} ${resume.title}」重演。`;
+      if (els.continueAction) els.continueAction.textContent = "重演航线";
     } else if (resume) {
       const lineNo = Number(state.play.lineIndex || 0) + 1;
-      els.continueSummary.textContent = `上次停留：${resume.code} · ${resume.title} · 第 ${lineNo} 句。进度已写入本机。`;
-      els.continueBtn.textContent = "继续剧情";
+      if (els.continueSummary) els.continueSummary.textContent = `上次停留：${resume.code} · ${resume.title} · 第 ${lineNo} 句。进度已写入本机。`;
+      if (els.continueAction) els.continueAction.textContent = "继续剧情";
     }
   }
 
@@ -1353,42 +1369,49 @@
     if (els.heroCopy) els.heroCopy.classList.add("is-swapping");
   }
 
+  function renderLineup() {
+    if (!els.heroLineup) return;
+    els.heroLineup.innerHTML = SELECT_UNITS.map((id, i) => {
+      const unit = CONSTRUCTS[id];
+      const frame = String((unit.frame || "").split("/")[1] || unit.frame).trim();
+      return `<button type="button" class="hero-unit" data-construct="${escapeHtml(id)}" style="--i:${i}" aria-pressed="false" aria-label="${escapeHtml(unit.cn + " · " + frame)}">
+        <img src="${escapeHtml(unit.src)}" alt="${escapeHtml(unit.alt)}">
+        <span class="hero-unit__meta"><strong>${escapeHtml(unit.cn)}</strong><span>${escapeHtml(String(frame).trim())}</span></span>
+      </button>`;
+    }).join("");
+  }
+
+  function markLineup() {
+    if (!els.heroLineup) return;
+    els.heroLineup.querySelectorAll(".hero-unit").forEach((btn) => {
+      const on = btn.getAttribute("data-construct") === state.activeConstructId;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
   function applyConstructCopy(construct) {
-    if (els.heroNameEn) els.heroNameEn.textContent = construct.en;
-    if (els.heroNameCn) els.heroNameCn.textContent = construct.cn;
-    if (els.heroFrame) els.heroFrame.textContent = construct.frame;
-    if (els.heroLede) els.heroLede.textContent = construct.lede;
-    if (els.heroFaction) els.heroFaction.textContent = construct.faction;
-    if (els.heroClass) els.heroClass.textContent = construct.klass;
-    if (els.heroLink) els.heroLink.textContent = construct.link;
-    if (els.heroTagId) els.heroTagId.textContent = construct.tagId;
-    if (els.heroSquad) {
-      els.heroSquad.querySelectorAll(".hero-squad__btn").forEach((btn) => {
-        const on = btn.getAttribute("data-construct") === construct.id;
-        btn.classList.toggle("is-active", on);
-        btn.setAttribute("aria-pressed", on ? "true" : "false");
-      });
-    }
+    const copy = construct || WAITING;
+    if (els.heroCv) els.heroCv.textContent = construct ? "CV. INTRO." : "SELECT";
+    if (els.heroNameEn) els.heroNameEn.textContent = copy.en;
+    if (els.heroNameCn) els.heroNameCn.textContent = copy.cn;
+    if (els.heroFrame) els.heroFrame.textContent = copy.frame;
+    if (els.heroLede) els.heroLede.textContent = copy.lede;
+    if (els.heroFaction) els.heroFaction.textContent = copy.faction;
+    if (els.heroClass) els.heroClass.textContent = copy.klass;
+    if (els.heroLink) els.heroLink.textContent = copy.link;
+    if (els.heroTagId) els.heroTagId.textContent = copy.tagId;
+    if (els.heroArt) els.heroArt.classList.toggle("is-waiting", !construct);
+    markLineup();
   }
 
   function setConstruct(id, { animate = false } = {}) {
-    const construct = CONSTRUCTS[id] || CONSTRUCTS["lucia-plume"];
-    const changed = construct.id !== state.activeConstructId;
-    state.activeConstructId = construct.id;
-    const shouldAnimate = animate && changed && !prefersReducedMotion();
+    const construct = id && CONSTRUCTS[id] ? CONSTRUCTS[id] : null;
+    const nextId = construct ? construct.id : null;
+    const changed = nextId !== state.activeConstructId;
+    state.activeConstructId = nextId;
     applyConstructCopy(construct);
-    if (els.heroPortrait) {
-      const applyPortrait = () => {
-        els.heroPortrait.src = construct.src;
-        els.heroPortrait.alt = construct.alt;
-      };
-      if (shouldAnimate) {
-        replayFrameSwap();
-        window.setTimeout(applyPortrait, 140);
-      } else {
-        applyPortrait();
-      }
-    }
+    if (animate && changed && !prefersReducedMotion()) replayFrameSwap();
   }
 
   function revealItems(root, selector) {
@@ -2003,9 +2026,9 @@
       });
     }
 
-    if (els.heroSquad) {
-      els.heroSquad.addEventListener("click", (e) => {
-        const btn = e.target.closest(".hero-squad__btn[data-construct]");
+    if (els.heroLineup) {
+      els.heroLineup.addEventListener("click", (e) => {
+        const btn = e.target.closest(".hero-unit[data-construct]");
         if (!btn) return;
         setConstruct(btn.getAttribute("data-construct"), { animate: true });
       });
@@ -2021,6 +2044,44 @@
         });
       });
     });
+
+    if (els.commandGrid) {
+      const previewOp = (op) => {
+        if (!op) return;
+        els.commandGrid.querySelectorAll(".command-op").forEach((item) => {
+          item.classList.toggle("is-on", item === op);
+        });
+        const src = op.getAttribute("data-preview");
+        const code = op.querySelector(".command-op__code");
+        if (els.commandPreviewImg && src) els.commandPreviewImg.src = src;
+        if (els.commandPreviewCode && code) els.commandPreviewCode.textContent = code.textContent;
+      };
+      els.commandGrid.addEventListener("pointerover", (e) => {
+        const op = e.target.closest(".command-op[data-go]");
+        if (op) previewOp(op);
+      });
+      els.commandGrid.addEventListener("focusin", (e) => {
+        const op = e.target.closest(".command-op[data-go]");
+        if (op) previewOp(op);
+      });
+      els.commandGrid.addEventListener("click", (e) => {
+        const card = e.target.closest("[data-go]");
+        if (!card) return;
+        previewOp(card);
+        const go = card.getAttribute("data-go");
+        if (go === "story") setTab("main");
+        if (go === "net") setTab("network");
+        document.querySelectorAll(".site-rail__item").forEach((item) => {
+          const href = item.getAttribute("href") || "";
+          const on = (go === "continue" && href === "#story")
+            || (go === "story" && href === "#story")
+            || (go === "data" && href === "#operator")
+            || (go === "net" && href === "#network")
+            || (go === "board" && href === "#board");
+          item.classList.toggle("is-active", on);
+        });
+      });
+    }
 
     if (els.storyTabs) {
       els.storyTabs.addEventListener("click", (e) => {
@@ -2146,11 +2207,13 @@
     els.panelNoteBtn.addEventListener("click", () => {
       openCompose({ mode: "annotation", nodeId: state.activeNodeId });
     });
-    els.continueBtn.addEventListener("click", () => {
-      const target = state.play.nodeId || state.progress.lastNodeId || NODES[0].id;
-      const lineIndex = target === state.play.nodeId ? state.play.lineIndex || 0 : 0;
-      openReader(target, { lineIndex });
-    });
+    if (els.continueBtn) {
+      els.continueBtn.addEventListener("click", () => {
+        const target = state.play.nodeId || state.progress.lastNodeId || NODES[0].id;
+        const lineIndex = target === state.play.nodeId ? state.play.lineIndex || 0 : 0;
+        openReader(target, { lineIndex });
+      });
+    }
 
     if (els.readingsList) els.readingsList.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-spoiler-reveal]");
@@ -2292,7 +2355,7 @@
     setSkipRead(state.skipRead);
     setLogOpen(false);
     setProgressUI();
-    setConstruct(state.activeConstructId);
+    renderLineup();
     setTab("main");
     if (state.play.nodeId || state.progress.lastNodeId) {
       const resumeId = state.play.nodeId || state.progress.lastNodeId;
@@ -2301,6 +2364,7 @@
       selectNode(resumeId);
       renderStageList();
     }
+    setConstruct(null);
     markMapReadState();
     startLinkGate();
   }
@@ -2313,9 +2377,15 @@
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let closed = false;
     const bootHero = () => {
-      if (!hero) return;
-      hero.classList.add("is-booting");
-      window.setTimeout(() => hero.classList.remove("is-booting"), 720);
+      const home = $("home");
+      if (home) {
+        home.classList.add("is-booting");
+        window.setTimeout(() => home.classList.remove("is-booting"), 900);
+      }
+      if (hero) {
+        hero.classList.add("is-booting");
+        window.setTimeout(() => hero.classList.remove("is-booting"), 720);
+      }
     };
     const close = () => {
       if (closed) return;
