@@ -152,8 +152,9 @@
               <p class="eyebrow">STORY</p>
               <h2 class="section__title" id="edition-title">剧情回顾</h2>
             </div>
-            <p class="section__meta">本地索引 43 章 · 点章看关卡 · 仅示例关可播</p>
+            <p class="section__meta">主线 43 章普通关可播 · 点章看关卡</p>
           </div>
+          <p class="story-world">黄金时代之后，帕弥什病毒吞掉地表文明。意识转入机兵的构造体，由空中花园的指挥官带往地面。人类阵线仍在作战。主线按 00 序章到 42 歧海循光阅读，不是世界线年表。</p>
           <div class="pgr-tabs" id="story-tabs" role="tablist" aria-label="剧情分类">
             <button type="button" class="pgr-tab is-active" data-tab="main" role="tab" aria-selected="true">主线剧情</button>
             <button type="button" class="pgr-tab" data-tab="interlude" role="tab" aria-selected="false">间章剧情</button>
@@ -162,8 +163,8 @@
           </div>
           <div class="story-grid" id="edition-rail-track" tabindex="0" aria-label="章节封面"></div>
           <div class="network-panel" id="network" hidden>
-            <p class="network-panel__lead" id="network-lead">灰鸦小队与间章相关角色。悬停看连线，点角色进入对应个人剧情。不是官方关系图。</p>
-            <p class="net-hint" id="net-hint">悬停角色：高亮关系 · 点击：进入对应间章</p>
+            <p class="network-panel__lead" id="network-lead">灰鸦小队、哈桑与间章相关角色。悬停看出场章节，点角色进入对应剧情。不是官方关系图。</p>
+            <p class="net-hint" id="net-hint">悬停角色：高亮关系 · 点击：进入对应章节</p>
             <div class="net-graph" id="net-graph"></div>
             <ul class="net-ties" id="net-ties"></ul>
           </div>
@@ -218,7 +219,7 @@
         <div>
           <h2>档案声明</h2>
           <p>过境 / MINDTRACE 为非官方粉丝向本地演示站，与库洛游戏及其关联方无隶属关系。</p>
-          <p>页面内剧情文本为原创示例，标注“示例文本 / 待授权内容”。角色立绘引用自 GRAY RAVENS Wiki 公开肖像页，仅作非官方展示，版权归库洛游戏所有。</p>
+          <p>主线普通关对白来自公开 Wiki 剧情回顾的本地整理，仅粉丝向展示，版权归库洛游戏。间章/活动仍是示例句。角色立绘引用自 GRAY RAVENS Wiki 公开肖像页。</p>
         </div>
         <div>
           <h2>结构索引</h2>
@@ -277,6 +278,10 @@
             <span>SKIP</span>
             <kbd>LT</kbd>
           </button>
+          <button type="button" class="vn__tool" id="vn-glossary-btn" aria-pressed="false">
+            <span>名词解释</span>
+            <kbd>G</kbd>
+          </button>
         </div>
         <button type="button" class="vn__close" data-close="reader-dialog" aria-label="关闭演出">✕</button>
       </header>
@@ -289,6 +294,12 @@
           <button type="button" class="btn btn--ghost" id="reader-note-btn">写批注</button>
           <button type="button" class="btn btn--ghost" id="vn-prev-btn">上一句</button>
         </div>
+      </aside>
+      <aside class="vn__glossary" id="vn-glossary" hidden>
+        <h3 class="vn__glossary-title">名词解释</h3>
+        <p class="vn__glossary-term" id="vn-glossary-term"></p>
+        <p class="vn__glossary-blurb" id="vn-glossary-blurb">点台词里的词，或按 G 打开。</p>
+        <ul class="vn__glossary-list" id="vn-glossary-list"></ul>
       </aside>
       <div class="vn__dialogue" id="vn-box" data-kind="narration">
         <div class="vn__image" id="vn-image" hidden>

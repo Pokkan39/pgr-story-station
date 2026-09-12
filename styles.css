@@ -1194,6 +1194,13 @@ body.is-linking {
   scroll-margin-top: 1.5rem;
 }
 
+.story-world {
+  margin: 0 0 var(--space-6);
+  max-width: 62ch;
+  color: var(--fg-muted);
+  line-height: var(--lh-snug);
+}
+
 .pgr-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -2718,6 +2725,92 @@ body.is-linking {
 
 .vn__log-item.is-current .vn__log-text {
   color: var(--paper);
+}
+
+.vn__glossary {
+  position: absolute;
+  right: var(--page-pad);
+  top: 5.5rem;
+  z-index: 6;
+  width: min(22rem, calc(100% - 2 * var(--page-pad)));
+  max-height: calc(100% - 12rem);
+  overflow: auto;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  background: rgba(5, 5, 5, 0.88);
+  pointer-events: auto;
+}
+
+.vn__glossary[hidden] {
+  display: none;
+}
+
+.vn__glossary-title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.vn__glossary-term {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  color: #fff;
+}
+
+.vn__glossary-blurb {
+  margin: 0 0 var(--space-4);
+  color: var(--fg);
+  line-height: var(--lh-snug);
+}
+
+.vn__glossary-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.vn__glossary-item {
+  margin: 0;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--fg-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.vn__glossary-item.is-on,
+.vn__glossary-item:hover,
+.vn__glossary-item:focus-visible {
+  border-color: var(--pgr-red);
+  color: #fff;
+}
+
+.vn__term {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--pgr-red);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.vn__term:hover,
+.vn__term:focus-visible {
+  color: var(--pgr-red);
 }
 
 .vn__danmaku {

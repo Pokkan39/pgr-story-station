@@ -543,3 +543,47 @@ DATA 排队立绘不再挤成底下一排小半身，也不再发灰。五人按
   - `progress.md`：本轮记录。
   - `.verify-shots/live-data-fullheight.png`、`.verify-shots/live-data-liv.png`：验收截图，非正式产品。
 - 回滚方式：还原 `styles.css`、`docs/story-station.md`、`docs/pgr-layout.md` 到「HOME 改成左操作右预览的指令台」版本。
+
+## 2026-09-12 - Task: 观看层补名词解释
+
+### What was done
+观看层按 AVG 习惯补了名词解释：右上多一个按钮，台词里的设定词带红下划线，点开看短释义。G 键开关。释义只写公开设定短句，不搬官方全文。
+
+### Testing
+- `node --check app.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=glossary1`：进入 0-0，点 NEXT 后台词高亮「人类阵线」；点击弹出释义「仍在地面作战的人类势力。」；G 键能关能开；点「指挥官」切换释义。
+- 截图：`.verify-shots/live-glossary.png`。
+
+### Notes
+- 改动文件清单：
+  - `index.html`：观看层加名词解释按钮与面板。
+  - `app.js`：公开设定词表、台词高亮、G 键开关。
+  - `styles.css`：词条下划线与右侧释义面板。
+  - `docs/story-station.md`、`docs/pgr-layout.md`：写明观看层有名词解释。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-glossary.png`：验收截图，非正式产品。
+- 回滚方式：还原上述文件到「DATA 立绘拉回全高排队」版本。
+
+## 2026-09-12 - Task: 主线 43 章完整剪本接入公开站
+
+### What was done
+把本地剧情回顾存档的主线普通关一次铺进公开站：43 章、868 关可播。观看层按关加载剪本；关卡页显示梗概、约字数、约分钟、出场人物。关系网补 NPC 首次与出场章节。STORY 顶补短世界观。页脚改为非官方声明。隐藏关本轮不做。
+
+### Testing
+- `node --check app.js`、`node --check tools/import-main.mjs`、`node --check chapters.js` 通过。
+- 导入统计：43 章、868 关、868 个按关 JSON、`empty: 0`、说话人 1044。抽样 `0-0` / `0-1` / `1-1` 对得上存档原文。同号关（如 6-9、21-13）拆成独立 id，不再互相覆盖。
+- 浏览器 `http://127.0.0.1:4173/?v=main43`：进度 `0 / 868`；STORY 顶有短世界观，主线封面 43 张。0-0 关卡页为「收复地球的任务…」+ 约 150 字 / 约 1 分钟 / 哈桑，序章 4 关均可播。观看层 0-0 第一句「帕弥什病毒的灾难——」，末句哈桑演讲；点 NEXT 进入 0-1，说话人露西亚。1-1 关卡页约 2593 字 / 约 9 分钟，观看层第一句「涂鸦艺术」，随后丽芙对白。点哈桑台词「人类阵线」弹出释义。关系网悬停哈桑可见首次 0-0、出场 36 章。控制台无 JS 报错。
+- 截图：`.verify-shots/live-main43-story-world.png`、`live-main43-stage-00.png`、`live-main43-00-glossary.png`、`live-main43-network-hassan.png`。
+
+### Notes
+- 改动文件清单：
+  - `tools/import-main.mjs`：从本地存档抽出普通关对白、梗概、字数、出场。
+  - `story/catalog.json`、`story/people.json`、`story/glossary.json`、`story/main/`：按关剪本与目录元数据。
+  - `chapters.js`：43 章普通关全部绑定 `nodeId` 与脚本路径。
+  - `app.js`：按关异步加载剪本；关卡页显示梗概/字数/时长/出场；关系网扩出场章节。
+  - `index.html`：STORY 顶短世界观；页脚改为非官方声明。
+  - `styles.css`：世界观短文样式。
+  - `docs/story-station.md`、`docs/pgr-layout.md`、`docs/assets.md`、`docs/portraits.md`：同步播放边界。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-main43-*.png`：验收截图，非正式产品。
+- 回滚方式：还原到提交 `b9dbc30`；删除 `story/` 与 `tools/import-main.mjs`。不触碰 F 盘剧情回顾原目录。

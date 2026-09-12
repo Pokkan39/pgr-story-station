@@ -146,150 +146,9 @@
     tagId: "00 / 05",
   };
 
+  let MAIN_CATALOG = [];
+  let STORY_PEOPLE = [];
   const NODES = [
-    {
-      id: "n01",
-      code: "0-0",
-      title: "进入序章",
-      type: "主线",
-      group: "main",
-      chapter: "00 序章",
-      scene: "空中花园 / 开场演讲",
-      summary: "公开骨架：0-0 进入序章。开场是人类阵线演讲，舞台上没有机兵立绘。",
-      characters: ["哈桑"],
-      factions: ["空中花园", "人类阵线"],
-      terms: ["构造体", "指挥官"],
-      cover: "lucia-lotus",
-      cg: "./assets/covers/prologue.png",
-      chapterNo: "00",
-      prev: null,
-      next: "n02",
-      lines: [
-        { speaker: "narrator", text: "示例文本 / 待授权内容。序章开场没有立绘，只有演讲骨架。" },
-        { speaker: "hassan", text: "示例：人类阵线把航线点亮。完整讲稿未收录，这里只演示阅读层。" },
-        { speaker: "narrator", text: "示例：构造体与指挥官尚未入画。下一节点才是灰鸦过境。" },
-      ],
-    },
-    {
-      id: "n02",
-      code: "1-1",
-      title: "灰鸦过境",
-      type: "主线",
-      group: "main",
-      chapter: "01 涂鸦艺术",
-      scene: "地球残留区 / 过境点",
-      summary: "公开骨架：1-1 灰鸦过境。在场机兵为露西亚·红莲、丽芙·蚀暗、里·异火。",
-      characters: ["丽芙·蚀暗", "露西亚·红莲", "里·异火", "指挥官"],
-      factions: ["灰鸦小队", "地球残留区"],
-      terms: ["过境", "感染体"],
-      cover: "lucia-lotus",
-      cg: "./assets/covers/ch01-graffiti.png",
-      chapterNo: "01",
-      prev: "n01",
-      next: "n03",
-      lines: [
-        { speaker: "liv-eclipse", text: "示例：你还站得住吗。红莲的损伤不能再拖。" },
-        { speaker: "lucia-lotus", text: "示例：切断痛觉之后，伤口不会自己报数。" },
-        { speaker: "lee-palefire", text: "示例：刚才那一刀的习惯，和她太像。" },
-        { speaker: "commander", text: "示例：灰鸦，向坐标进发。完整对白仍待授权。" },
-      ],
-    },
-    {
-      id: "n03",
-      code: "1-2",
-      title: "临别赠礼",
-      type: "主线",
-      group: "main",
-      chapter: "01 涂鸦艺术",
-      scene: "高架桥 / 临时整备",
-      summary: "公开骨架：1-2 临别赠礼。露西亚换上非原装手臂；丽芙仍缺浮游炮核心。",
-      characters: ["构造体士兵", "露西亚·红莲", "丽芙·蚀暗", "里·异火", "指挥官"],
-      factions: ["灰鸦小队"],
-      terms: ["整备", "手臂"],
-      cover: "liv-eclipse",
-      cg: "./assets/covers/ch01-graffiti.png",
-      chapterNo: "02",
-      prev: "n02",
-      next: "n04",
-      lines: [
-        { speaker: "soldier", text: "示例：把这只手臂带走。空中花园军工，能让红莲重新握刀。" },
-        { speaker: "lee-palefire", text: "示例：按她的动作习惯改偏移值。不是原装，但能打。" },
-        { speaker: "liv-eclipse", text: "示例：我的浮游炮核心还在遗弃点。没有它，蚀暗只能观测。" },
-        { speaker: "lucia-lotus", text: "示例：带上。后面还有雾。官方台词未收录。" },
-      ],
-    },
-    {
-      id: "n04",
-      code: "1-4",
-      title: "完整战力",
-      type: "主线",
-      group: "main",
-      chapter: "01 涂鸦艺术",
-      scene: "前线废楼 / 火力点",
-      summary: "公开骨架：1-4 完整战力。灰鸦三人队齐装满员，推荐蚀暗上场。",
-      characters: ["丽芙·蚀暗", "露西亚·红莲", "里·异火", "指挥官"],
-      factions: ["灰鸦小队"],
-      terms: ["战力", "机兵"],
-      cover: "liv-eclipse",
-      cg: "./assets/covers/ch01-graffiti.png",
-      chapterNo: "04",
-      prev: "n03",
-      next: "n05",
-      lines: [
-        { speaker: "liv-eclipse", text: "示例：支援到位。完整战力不是口号，是蚀暗把火力补上。" },
-        { speaker: "lucia-lotus", text: "示例：红莲可以继续切。你先接入那具感染残骸。" },
-        { speaker: "lee-palefire", text: "示例：她停大部分功能时，由我们护住。" },
-        { speaker: "commander", text: "示例：灰鸦现在可以作为一个名字被点名。" },
-      ],
-    },
-    {
-      id: "n05",
-      code: "1-6",
-      title: "迷失雾中",
-      type: "主线",
-      group: "main",
-      chapter: "01 涂鸦艺术",
-      scene: "浓雾街区 / 喷涂痕迹",
-      summary: "公开骨架：1-6 迷失雾中。在场是灰鸦三人队；敌方为感染喷涂机械，不是七实。",
-      characters: ["里·异火", "丽芙·蚀暗", "露西亚·红莲", "指挥官"],
-      factions: ["灰鸦小队", "地球残留区"],
-      terms: ["迷雾", "涂鸦"],
-      cover: "lee-palefire",
-      cg: "./assets/covers/ch01-graffiti.png",
-      chapterNo: "06",
-      prev: "n04",
-      next: "n06",
-      lines: [
-        { speaker: "lee-palefire", text: "示例：雾里定位失效。地面低温颜料能指路。" },
-        { speaker: "liv-eclipse", text: "示例：电磁干扰把搜索削薄了。坐标还在跳。" },
-        { speaker: "lucia-lotus", text: "示例：新种把喷涂当作品。我们只负责把它拆掉。" },
-        { speaker: "commander", text: "示例：沿痕迹前进。完整对白仍待授权。" },
-      ],
-    },
-    {
-      id: "n06",
-      code: "1-12",
-      title: "最终创作",
-      type: "主线",
-      group: "main",
-      chapter: "01 涂鸦艺术",
-      scene: "涂鸦街区 / 终章现场",
-      summary: "公开骨架：1-12 最终创作。灰鸦对喷涂机械体收束第一章，随后被召回空中花园。",
-      characters: ["丽芙·蚀暗", "里·异火", "露西亚·红莲", "指挥官"],
-      factions: ["灰鸦小队", "空中花园"],
-      terms: ["终章", "档案"],
-      cover: "lucia-lotus",
-      cg: "./assets/covers/ch01-graffiti.png",
-      chapterNo: "12",
-      prev: "n05",
-      next: null,
-      lines: [
-        { speaker: "liv-eclipse", text: "示例：喷涂机械体放弃抵抗，一边打一边画。" },
-        { speaker: "lee-palefire", text: "示例：机体沉默之后，记忆可以提取。不要把这当画展。" },
-        { speaker: "lucia-lotus", text: "示例：刀收回鞘里。过境从进行时改成完成时。" },
-        { speaker: "commander", text: "示例：骨架到此。正文仍待授权。" },
-      ],
-    },
     {
       id: "i-lotus",
       code: "间章",
@@ -428,7 +287,7 @@
   const INTERLUDES = Array.isArray(window.PGR_INTERLUDES) ? window.PGR_INTERLUDES : [];
 
   const TABS = {
-    main: { label: "主线剧情", empty: "主线骨架尚未载入。" },
+    main: { label: "主线剧情", empty: "主线目录尚未载入。" },
     interlude: { label: "间章剧情", empty: "间章骨架尚未载入。" },
     event: { label: "活动剧情", empty: "活动骨架尚未载入。" },
     network: { label: "关系网", empty: "" },
@@ -440,6 +299,7 @@
     lee: { id: "lee", name: "里", frame: "异火", construct: "lee-palefire", x: 82, y: 28, interlude: "i06" },
     nanami: { id: "nanami", name: "七实", frame: "风暴", construct: "nanami-storm", x: 34, y: 58, interlude: "i11" },
     commander: { id: "commander", name: "指挥官", frame: "", construct: null, x: 50, y: 42 },
+    hassan: { id: "hassan", name: "哈桑", frame: "人类阵线", construct: null, x: 50, y: 88 },
     luna: { id: "luna", name: "露娜", frame: "银冕", construct: "luna-argent", x: 10, y: 62, interlude: "i00" },
     karenina: { id: "karenina", name: "卡列尼娜", frame: "爆裂", construct: "karenina-blast", x: 66, y: 70, interlude: "i07" },
     watanabe: { id: "watanabe", name: "渡边", frame: "夜刃", construct: "watanabe-nightblade", x: 88, y: 62, interlude: "i08" },
@@ -447,18 +307,19 @@
   };
 
   const TIES = [
-    { a: "lucia", b: "liv", label: "灰鸦小队", nodes: ["n02", "n03", "n04"] },
-    { a: "lucia", b: "lee", label: "灰鸦小队", nodes: ["n02", "n04", "n05"] },
-    { a: "liv", b: "lee", label: "灰鸦小队", nodes: ["n02", "n04"] },
-    { a: "lucia", b: "commander", label: "指挥链路", nodes: ["n02", "n06"] },
-    { a: "liv", b: "commander", label: "指挥链路", nodes: ["n03", "n04"] },
-    { a: "lee", b: "commander", label: "指挥链路", nodes: ["n05"] },
+    { a: "lucia", b: "liv", label: "灰鸦小队", nodes: ["m01-1-1", "m01-1-2", "m01-1-4"] },
+    { a: "lucia", b: "lee", label: "灰鸦小队", nodes: ["m01-1-1", "m01-1-4", "m01-1-6"] },
+    { a: "liv", b: "lee", label: "灰鸦小队", nodes: ["m01-1-1", "m01-1-4"] },
+    { a: "lucia", b: "commander", label: "指挥链路", nodes: ["m01-1-1", "m01-1-12"] },
+    { a: "liv", b: "commander", label: "指挥链路", nodes: ["m01-1-2", "m01-1-4"] },
+    { a: "lee", b: "commander", label: "指挥链路", nodes: ["m01-1-6"] },
     { a: "nanami", b: "lucia", label: "早期对照", nodes: ["i-storm"] },
     { a: "lucia", b: "luna", label: "姐妹", interlude: "i00" },
     { a: "nanami", b: "commander", label: "间章友人", interlude: "i05" },
     { a: "karenina", b: "commander", label: "工程部队", interlude: "i07" },
     { a: "watanabe", b: "commander", label: "遗忘者", interlude: "i08" },
     { a: "vera", b: "lucia", label: "净化者", interlude: "i16" },
+    { a: "hassan", b: "commander", label: "人类阵线", nodes: ["m00-0-0"] },
   ];
 
   const SPEAKERS = {
@@ -473,13 +334,32 @@
     narrator: { name: "", frame: "", construct: null },
   };
 
+  const GLOSSARY = {
+    "构造体": "意识转入机兵后的作战单位，不是普通人。",
+    "指挥官": "空中花园的前线指挥。过剧情时默认视角。",
+    "空中花园": "近地轨道据点。灰鸦从这里被派往地面。",
+    "人类阵线": "仍在地面作战的人类势力。",
+    "灰鸦小队": "空中花园编制：露西亚、丽芙、里。",
+    "灰鸦": "灰鸦小队的简称。",
+    "红莲": "露西亚的初期机兵。早期主线默认形态。",
+    "蚀暗": "丽芙的初期机兵。早期主线默认形态。",
+    "异火": "里的初期机兵。早期主线默认形态。",
+    "风暴": "七实的初期机兵。",
+    "感染体": "被惩罚病毒侵蚀的机械或生物。",
+    "机兵": "构造体化身的作战机体。",
+    "过境": "本站名，也借公开关卡「灰鸦过境」。",
+    "间章": "角色个人剧情，不是主线章。",
+    "浮点纪实": "活动剧情的公开分类名。",
+  };
+  let GLOSSARY_KEYS = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+
   const DEMO_DANMAKU = {
-    n01: ["血清不够才来回看", "0-0 没有立绘是对的", "示例弹幕，可关"],
-    n02: ["灰鸦过境从这里开始", "红莲 / 蚀暗 / 异火", "官方台词未收录"],
-    n03: ["临别赠礼不是道具页", "蚀暗还缺核心"],
-    n04: ["完整战力是三人队齐装满员", "推荐蚀暗上场"],
-    n05: ["1-6 还是灰鸦三人队", "雾里适合停下来写批注"],
-    n06: ["第一章收到这里", "骨架到此，正文待授权"],
+    "m00-0-0": ["血清不够才来回看", "0-0 没有立绘是对的", "示例弹幕，可关"],
+    "m01-1-1": ["灰鸦过境从这里开始", "红莲 / 蚀暗 / 异火"],
+    "m01-1-2": ["临别赠礼不是道具页", "蚀暗还缺核心"],
+    "m01-1-4": ["完整战力是三人队齐装满员", "推荐蚀暗上场"],
+    "m01-1-6": ["1-6 还是灰鸦三人队", "雾里适合停下来写批注"],
+    "m01-1-12": ["第一章收到这里"],
     "i-lotus": ["红莲间章入口", "官方台词未收录"],
     "i-eclipse": ["蚀暗间章入口"],
     "i-palefire": ["异火间章入口"],
@@ -494,8 +374,8 @@
       title: "过境之后灰鸦才成为小队",
       tags: ["主线", "灰鸦"],
       spoiler: "arc",
-      body: "1-1 到 1-4 的骨架不是战斗清单，而是三人队被点名的过程。示例观点，供界面演示。",
-      nodeId: "n02",
+      body: "1-1 到 1-4 不是战斗清单，而是三人队被点名的过程。示例观点，供界面演示。",
+      nodeId: "m01-1-1",
       createdAt: "2026-09-10T10:00:00.000Z",
       source: "demo",
     },
@@ -504,8 +384,8 @@
       title: "临别赠礼读成观测，而不是道具",
       tags: ["丽芙", "整备"],
       spoiler: "node",
-      body: "1-2 把丽芙放在整备缝隙。示例解读只讨论骨架，不引用官方对白。",
-      nodeId: "n03",
+      body: "1-2 把丽芙放在整备缝隙。示例解读。",
+      nodeId: "m01-1-2",
       createdAt: "2026-09-10T18:30:00.000Z",
       source: "demo",
     },
@@ -515,7 +395,7 @@
       tags: ["观察", "失联"],
       spoiler: "none",
       body: "1-6 通讯变薄，适合停下来写跟帖。示例观点。",
-      nodeId: "n05",
+      nodeId: "m01-1-6",
       createdAt: "2026-09-09T12:00:00.000Z",
       source: "demo",
     },
@@ -556,6 +436,8 @@
     autoTimer: 0,
     skipRead: false,
     logOpen: false,
+    glossaryOpen: false,
+    glossaryTerm: "",
     play: { nodeId: null, lineIndex: 0, autoOn: false, skipRead: false, danmakuOn: true, seen: {} },
   };
 
@@ -640,6 +522,11 @@
     els.vnLogBtn = $("vn-log-btn");
     els.vnAutoBtn = $("vn-auto-btn");
     els.vnSkipBtn = $("vn-skip-btn");
+    els.vnGlossary = $("vn-glossary");
+    els.vnGlossaryBtn = $("vn-glossary-btn");
+    els.vnGlossaryTerm = $("vn-glossary-term");
+    els.vnGlossaryBlurb = $("vn-glossary-blurb");
+    els.vnGlossaryList = $("vn-glossary-list");
     els.vnDanmaku = $("vn-danmaku");
     els.vnDanmakuToggle = $("vn-danmaku-toggle");
     els.vnDanmakuInput = $("vn-danmaku-input");
@@ -730,14 +617,62 @@
     }
   }
 
+  function hydrateCatalog(row) {
+    return {
+      id: row.id,
+      code: row.code,
+      title: row.title,
+      type: "主线",
+      group: "main",
+      chapter: row.chapter,
+      scene: row.chapter,
+      summary: row.summary || "",
+      characters: row.characters || [],
+      factions: row.factions || [],
+      terms: row.terms || [],
+      cg: row.cg,
+      prev: row.prev || null,
+      next: row.next || null,
+      script: row.script,
+      chars: row.chars || 0,
+      minutes: row.minutes || 1,
+      lines: [],
+    };
+  }
+
   function getNode(id) {
-    return NODES.find((n) => n.id === id) || null;
+    return NODES.find((n) => n.id === id) || MAIN_CATALOG.find((n) => n.id === id) || null;
+  }
+
+  function allStoryNodes() {
+    return MAIN_CATALOG.concat(NODES);
   }
 
   function nodesInTab(tab) {
     const key = tab || state.activeTab;
-    if (key === "network") return NODES.filter((n) => n.group === "main");
+    if (key === "main" || key === "network") return MAIN_CATALOG;
     return NODES.filter((n) => n.group === key);
+  }
+
+  async function loadStoryData() {
+    const [catalog, people, glossary] = await Promise.all([
+      fetch("./story/catalog.json").then((res) => res.json()),
+      fetch("./story/people.json").then((res) => res.json()),
+      fetch("./story/glossary.json").then((res) => res.json()).catch(() => ({})),
+    ]);
+    MAIN_CATALOG = Array.isArray(catalog) ? catalog.map(hydrateCatalog) : [];
+    STORY_PEOPLE = Array.isArray(people) ? people : [];
+    Object.assign(GLOSSARY, glossary || {});
+    GLOSSARY_KEYS = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+  }
+
+  async function ensureScript(node) {
+    if (!node) return node;
+    if (Array.isArray(node.lines) && node.lines.length) return node;
+    if (!node.script) return node;
+    const data = await fetch(encodeURI(node.script)).then((res) => res.json());
+    node.lines = (data && data.lines) || [{ speaker: "narrator", text: node.summary || "" }];
+    return node;
   }
 
   function getChapter(id) {
@@ -767,6 +702,19 @@
     return node ? `${node.code} ${node.title}` : "—";
   }
 
+  function appearRecord(name) {
+    return STORY_PEOPLE.find((row) => row.name === name) || null;
+  }
+
+  function appearChapters(name) {
+    const row = appearRecord(name);
+    if (!row || !row.chapters) return [];
+    return row.chapters.map((id) => {
+      const ch = getChapter(id);
+      return ch ? chapterLabel(ch) : id;
+    });
+  }
+
   function uid(prefix) {
     return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
   }
@@ -781,19 +729,19 @@
   }
 
   function setProgressUI() {
-    const total = NODES.length;
+    const total = MAIN_CATALOG.length || NODES.length;
     const count = state.progress.readIds.length;
     const pct = total ? Math.round((count / total) * 100) : 0;
     els.progressValue.textContent = `${count} / ${total}`;
     els.progressBar.setAttribute("aria-valuenow", String(pct));
     els.progressFill.style.transform = `scaleX(${pct / 100})`;
 
-    const resume = getNode(state.play.nodeId) || getNode(state.progress.lastNodeId) || getNode(NODES[0].id);
+    const resume = getNode(state.play.nodeId) || getNode(state.progress.lastNodeId) || MAIN_CATALOG[0] || NODES[0];
     if (!state.play.nodeId && count === 0) {
       if (els.continueSummary) els.continueSummary.textContent = "尚未记录进度。从序章开始一段线性演出。";
       if (els.continueAction) els.continueAction.textContent = "开始剧情";
     } else if (count >= total && resume) {
-      if (els.continueSummary) els.continueSummary.textContent = `已读完 ${total} 个骨架节点。可从「${resume.code} ${resume.title}」重演。`;
+      if (els.continueSummary) els.continueSummary.textContent = `已读完 ${total} 关。可从「${resume.code} ${resume.title}」重演。`;
       if (els.continueAction) els.continueAction.textContent = "重演航线";
     } else if (resume) {
       const lineNo = Number(state.play.lineIndex || 0) + 1;
@@ -872,6 +820,9 @@
     els.panelType.textContent = node.type;
     els.panelTitle.textContent = `${node.code} ${node.title}`;
     els.panelSummary.textContent = node.summary;
+    if (node.chars) {
+      els.panelSummary.textContent = `${node.summary}\n约 ${node.chars} 字 · 约 ${node.minutes} 分钟`;
+    }
     if (els.stageCg) {
       const nextSrc = node.cg || "./assets/covers/prologue.png";
       const stage = document.getElementById("node-panel");
@@ -884,9 +835,11 @@
     }
     els.panelTags.hidden = false;
     els.panelTags.innerHTML = "";
-    [...node.characters, ...node.factions, ...node.terms].forEach((tag) => {
+    const tags = [...(node.characters || []), ...(node.factions || []), ...(node.terms || [])];
+    if (node.chars) tags.unshift(`约 ${node.minutes} 分钟`);
+    tags.forEach((tag) => {
       const span = document.createElement("span");
-      span.className = "tag" + (node.characters.includes(tag) || node.factions.includes(tag) ? " tag--entity" : "");
+      span.className = "tag" + ((node.characters || []).includes(tag) || (node.factions || []).includes(tag) ? " tag--entity" : "");
       span.textContent = tag;
       els.panelTags.appendChild(span);
     });
@@ -950,8 +903,11 @@
     return Array.isArray(node.lines) && node.lines.length ? node.lines : [{ speaker: "narrator", text: node.summary || "" }];
   }
 
-  function speakerOf(key) {
-    return SPEAKERS[key] || SPEAKERS.narrator;
+  function speakerOf(key, line) {
+    if (SPEAKERS[key]) return SPEAKERS[key];
+    if (line && line.name) return { name: line.name, frame: "", construct: null };
+    if (key && key !== "narrator") return { name: key, frame: "", construct: null };
+    return SPEAKERS.narrator;
   }
 
   function persistPlay() {
@@ -1018,6 +974,67 @@
     if (els.vnStage) els.vnStage.classList.toggle("is-log-open", state.logOpen);
   }
 
+  function markTerms(text) {
+    const raw = String(text || "");
+    let html = "";
+    for (let i = 0; i < raw.length; ) {
+      const hit = GLOSSARY_KEYS.find((term) => raw.startsWith(term, i));
+      if (hit) {
+        html += `<button type="button" class="vn__term" data-term="${escapeHtml(hit)}">${escapeHtml(hit)}</button>`;
+        i += hit.length;
+      } else {
+        html += escapeHtml(raw[i]);
+        i += 1;
+      }
+    }
+    return html;
+  }
+
+  function termsInText(text) {
+    const raw = String(text || "");
+    return GLOSSARY_KEYS.filter((term) => raw.includes(term));
+  }
+
+  function renderGlossary() {
+    if (!els.vnGlossaryList) return;
+    const node = getNode(state.readerNodeId);
+    const line = node ? nodeLines(node)[state.lineIndex] : null;
+    const inLine = termsInText(line && line.text);
+    const related = [];
+    (node && Array.isArray(node.terms) ? node.terms : []).forEach((term) => {
+      if (GLOSSARY[term] && !inLine.includes(term) && !related.includes(term)) related.push(term);
+    });
+    const shown = inLine.concat(related);
+    const current = GLOSSARY[state.glossaryTerm] ? state.glossaryTerm : (shown[0] || "");
+    state.glossaryTerm = current;
+    if (els.vnGlossaryTerm) els.vnGlossaryTerm.textContent = current || "暂无词条";
+    if (els.vnGlossaryBlurb) {
+      els.vnGlossaryBlurb.textContent = current
+        ? GLOSSARY[current]
+        : "这一句没有可解释的词。点台词高亮，或按 G 打开。";
+    }
+    els.vnGlossaryList.innerHTML = shown.map((term) => (
+      `<li><button type="button" class="vn__glossary-item${term === current ? " is-on" : ""}" data-term="${escapeHtml(term)}">${escapeHtml(term)}</button></li>`
+    )).join("");
+  }
+
+  function setGlossaryOpen(on) {
+    state.glossaryOpen = Boolean(on);
+    if (els.vnGlossary) els.vnGlossary.hidden = !state.glossaryOpen;
+    if (els.vnGlossaryBtn) els.vnGlossaryBtn.setAttribute("aria-pressed", state.glossaryOpen ? "true" : "false");
+    if (els.vnStage) els.vnStage.classList.toggle("is-glossary-open", state.glossaryOpen);
+    if (state.glossaryOpen) {
+      stopAuto();
+      renderGlossary();
+    }
+  }
+
+  function openTerm(term) {
+    if (!GLOSSARY[term]) return;
+    state.glossaryTerm = term;
+    setGlossaryOpen(true);
+  }
+
   function nodeCast(node) {
     const ids = [];
     nodeLines(node).forEach((line) => {
@@ -1076,8 +1093,8 @@
     const lines = nodeLines(node);
     const end = Math.max(0, Math.min(index, lines.length - 1));
     els.vnLogList.innerHTML = lines.slice(0, end + 1).map((line, i) => {
-      const speaker = speakerOf(line.speaker);
-      const name = speaker.name || "旁白";
+      const speaker = speakerOf(line.speaker, line);
+      const name = line.name || speaker.name || "旁白";
       return `<li class="vn__log-item${i === end ? " is-current" : ""}"><span class="vn__log-name">${escapeHtml(name)}</span><span class="vn__log-text">${escapeHtml(line.text)}</span></li>`;
     }).join("");
     const current = els.vnLogList.querySelector(".is-current");
@@ -1089,11 +1106,12 @@
     const clamped = Math.max(0, Math.min(index, lines.length - 1));
     state.lineIndex = clamped;
     const line = lines[clamped];
-    const speaker = speakerOf(line.speaker);
+    const speaker = speakerOf(line.speaker, line);
     const full = line.text || "";
-    els.vnName.textContent = speaker.name;
-    els.vnName.hidden = !speaker.name;
-    els.vnBox.dataset.kind = speaker.construct ? "speech" : speaker.name ? "npc" : "narration";
+    const shownName = line.name || speaker.name;
+    els.vnName.textContent = shownName;
+    els.vnName.hidden = !shownName;
+    els.vnBox.dataset.kind = speaker.construct ? "speech" : shownName ? "npc" : "narration";
     setVnAvatar(speaker.construct);
     renderCast(node, line.speaker);
     if (els.vnPrevBtn) els.vnPrevBtn.disabled = clamped <= 0;
@@ -1103,13 +1121,14 @@
     if (els.vnLine) {
       if (instant || prefersReducedMotion() || isLineSeen(node.id, clamped)) {
         stopTyping();
-        els.vnLine.textContent = full;
+        els.vnLine.innerHTML = markTerms(full);
         state.typedCount = full.length;
         markLineSeen(node.id, clamped);
       } else {
         startTyping(full);
       }
     }
+    if (state.glossaryOpen) renderGlossary();
     persistPlay();
     setProgressUI();
   }
@@ -1128,9 +1147,11 @@
       if (state.typedCount >= full.length) {
         state.typing = false;
         state.typeTimer = 0;
+        els.vnLine.innerHTML = markTerms(full);
         const node = getNode(state.readerNodeId);
         if (node) markLineSeen(node.id, state.lineIndex);
         persistPlay();
+        if (state.glossaryOpen) renderGlossary();
         scheduleAuto();
         return;
       }
@@ -1145,8 +1166,9 @@
     const line = nodeLines(node)[state.lineIndex];
     if (!line) return;
     stopTyping();
-    els.vnLine.textContent = line.text || "";
+    els.vnLine.innerHTML = markTerms(line.text || "");
     state.typedCount = (line.text || "").length;
+    if (state.glossaryOpen) renderGlossary();
     markLineSeen(node.id, state.lineIndex);
     persistPlay();
     scheduleAuto();
@@ -1184,10 +1206,13 @@
       return;
     }
     const next = getNode(node.next);
-    fillReader(next, { lineIndex: 0 });
-    selectNode(next.id);
-    markRead(next.id);
-    if (!state.typing) scheduleAuto();
+    if (!next) return;
+    ensureScript(next).then((ready) => {
+      fillReader(ready, { lineIndex: 0 });
+      selectNode(ready.id);
+      markRead(ready.id);
+      if (!state.typing) scheduleAuto();
+    });
   }
 
   function commentsFor(nodeId) {
@@ -1257,6 +1282,8 @@
     const start = Math.max(0, Math.min(lineIndex, lines.length - 1));
     paintLine(node, start, { instant: isLineSeen(node.id, start) });
     setLogOpen(false);
+    state.glossaryTerm = "";
+    setGlossaryOpen(false);
     refreshDanmaku(node.id);
   }
 
@@ -1275,11 +1302,13 @@
     const node = getNode(nodeId);
     if (!node) return;
     selectNode(nodeId);
-    fillReader(node, { lineIndex });
-    markRead(nodeId);
-    persistPlay();
-    openDialog(els.readerDialog, els.readerNextBtn);
-    if (state.autoOn) scheduleAuto();
+    ensureScript(node).then((ready) => {
+      fillReader(ready, { lineIndex });
+      markRead(nodeId);
+      persistPlay();
+      openDialog(els.readerDialog, els.readerNextBtn);
+      if (state.autoOn) scheduleAuto();
+    });
   }
 
   function openCompose({ mode = "reading", nodeId = "" } = {}) {
@@ -1589,8 +1618,8 @@
     els.panelType.textContent = "主线目录";
     els.panelTitle.textContent = current ? `${current.code} ${current.title}` : chapterLabel(ch);
     els.panelSummary.textContent = current && current.nodeId
-      ? "可播放示例关。"
-      : "本地索引关卡名。正文未接入，观看层仍只演示已有示例句。";
+      ? "主线普通关已接入本地剪本。"
+      : "本地索引关卡名。";
     if (els.stageCg) {
       els.stageCg.src = ch.cg || "./assets/covers/prologue.png";
     }
@@ -1716,8 +1745,12 @@
       const names = ties.map((t) => PEOPLE[t.a === personId ? t.b : t.a].name);
       const chapters = [...new Set(ties.flatMap((t) => t.nodes || []))].map((id) => nodeLabel(id));
       const stories = interludesForPerson(personId).map((item) => item.title);
-      const look = stories.length ? stories.join(" / ") : (chapters.join(" / ") || "—");
-      return `${p.name} · ${p.frame || "指挥"}　关系：${names.join("、") || "无"}　个人剧情：${look}`;
+      const appear = appearRecord(p.name);
+      const first = appear ? nodeLabel(appear.first) : "";
+      const seen = appearChapters(p.name);
+      const seenText = seen.length ? (seen.length > 8 ? `${seen.slice(0, 8).join(" / ")} 等 ${seen.length} 章` : seen.join(" / ")) : "—";
+      const look = stories.length ? stories.join(" / ") : (chapters.join(" / ") || first || "—");
+      return `${p.name} · ${p.frame || "指挥"}　关系：${names.join("、") || "无"}　首次：${first || "—"}　出场：${seenText}　可回看：${look}`;
     }
     if (tieIndex != null && TIES[tieIndex]) {
       const tie = TIES[tieIndex];
@@ -1830,25 +1863,28 @@
   }
 
   function buildSearchIndex() {
-    const chapterHits = NODES.map((n) => ({
+    const chapterHits = allStoryNodes().map((n) => ({
       group: "章节",
       id: n.id,
       title: `${n.code} ${n.title}`,
       meta: n.chapter,
       type: "node",
-      hay: `${n.code} ${n.title} ${n.chapter} ${n.summary} ${n.type} ${(n.lines || []).map((l) => l.text).join(" ")}`.toLowerCase(),
+      hay: `${n.code} ${n.title} ${n.chapter} ${n.summary} ${n.type}`.toLowerCase(),
     }));
     const charSet = new Map();
     const factionSet = new Map();
-    NODES.forEach((n) => {
-      n.characters.forEach((c) => {
+    allStoryNodes().forEach((n) => {
+      (n.characters || []).forEach((c) => {
         if (!charSet.has(c)) charSet.set(c, []);
         charSet.get(c).push(n.id);
       });
-      n.factions.forEach((f) => {
+      (n.factions || []).forEach((f) => {
         if (!factionSet.has(f)) factionSet.set(f, []);
         factionSet.get(f).push(n.id);
       });
+    });
+    STORY_PEOPLE.forEach((p) => {
+      if (!charSet.has(p.name)) charSet.set(p.name, [p.first]);
     });
     const characterHits = [...charSet.entries()].map(([name, nodeIds]) => ({
       group: "角色",
@@ -1979,7 +2015,7 @@
       tags: parseTags(els.composeTags.value),
       spoiler: els.composeSpoiler.value,
       body: els.composeBody.value.trim(),
-      nodeId: els.composeNode.value || state.activeNodeId || NODES[0].id,
+      nodeId: els.composeNode.value || state.activeNodeId || (MAIN_CATALOG[0] && MAIN_CATALOG[0].id) || NODES[0].id,
       createdAt: new Date().toISOString(),
       source: mode === "annotation" ? "annotation" : "user",
     };
@@ -2128,9 +2164,11 @@
           setTab("interlude");
           return;
         }
+        const appear = appearRecord(person.name);
         const hit =
           NODES.find((n) => n.group === "interlude" && n.cover === person.construct) ||
-          NODES.find((n) => n.group === "main" && (n.characters || []).some((c) => c.includes(person.name)) && n.id !== "n01") ||
+          (appear && getNode(appear.first)) ||
+          MAIN_CATALOG.find((n) => (n.characters || []).some((c) => c.includes(person.name))) ||
           NODES.find((n) => (n.characters || []).some((c) => c.includes(person.name)));
         if (hit) {
           const tab = hit.group === "interlude" || hit.group === "event" ? hit.group : "main";
@@ -2209,7 +2247,7 @@
     });
     if (els.continueBtn) {
       els.continueBtn.addEventListener("click", () => {
-        const target = state.play.nodeId || state.progress.lastNodeId || NODES[0].id;
+        const target = state.play.nodeId || state.progress.lastNodeId || (MAIN_CATALOG[0] && MAIN_CATALOG[0].id) || NODES[0].id;
         const lineIndex = target === state.play.nodeId ? state.play.lineIndex || 0 : 0;
         openReader(target, { lineIndex });
       });
@@ -2271,6 +2309,25 @@
     if (els.vnLogBtn) {
       els.vnLogBtn.addEventListener("click", () => setLogOpen(!state.logOpen));
     }
+    if (els.vnGlossaryBtn) {
+      els.vnGlossaryBtn.addEventListener("click", () => setGlossaryOpen(!state.glossaryOpen));
+    }
+    if (els.vnLine) {
+      els.vnLine.addEventListener("click", (e) => {
+        const btn = e.target.closest(".vn__term[data-term]");
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        openTerm(btn.getAttribute("data-term"));
+      });
+    }
+    if (els.vnGlossaryList) {
+      els.vnGlossaryList.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-term]");
+        if (!btn) return;
+        openTerm(btn.getAttribute("data-term"));
+      });
+    }
     if (els.vnDanmakuToggle) {
       els.vnDanmakuToggle.addEventListener("click", () => setDanmakuOn(!state.danmakuOn));
     }
@@ -2302,6 +2359,9 @@
       } else if ((e.key || "").toLowerCase() === "y" || (e.key || "").toLowerCase() === "h") {
         e.preventDefault();
         setLogOpen(!state.logOpen);
+      } else if ((e.key || "").toLowerCase() === "g") {
+        e.preventDefault();
+        setGlossaryOpen(!state.glossaryOpen);
       }
     });
 
@@ -2354,19 +2414,26 @@
     setAutoOn(state.autoOn);
     setSkipRead(state.skipRead);
     setLogOpen(false);
-    setProgressUI();
     renderLineup();
-    setTab("main");
-    if (state.play.nodeId || state.progress.lastNodeId) {
-      const resumeId = state.play.nodeId || state.progress.lastNodeId;
-      const host = MAIN_CHAPTERS.find((ch) => (ch.stages || []).some((s) => s.nodeId === resumeId));
-      if (host) state.activeChapterId = host.id;
-      selectNode(resumeId);
-      renderStageList();
-    }
     setConstruct(null);
-    markMapReadState();
     startLinkGate();
+    loadStoryData().then(() => {
+      setProgressUI();
+      setTab("main");
+      if (state.play.nodeId || state.progress.lastNodeId) {
+        const resumeId = state.play.nodeId || state.progress.lastNodeId;
+        const host = MAIN_CHAPTERS.find((ch) => (ch.stages || []).some((s) => s.nodeId === resumeId));
+        if (host) state.activeChapterId = host.id;
+        if (getNode(resumeId)) {
+          selectNode(resumeId);
+          renderStageList();
+        }
+      }
+      markMapReadState();
+    }).catch(() => {
+      setProgressUI();
+      setTab("main");
+    });
   }
 
   function startLinkGate() {
