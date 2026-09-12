@@ -639,7 +639,7 @@ DATA 排队立绘不再挤成底下一排小半身，也不再发灰。五人按
 - 浏览器 `http://127.0.0.1:4173/?v=thumbs1`：进站仍 6 个请求。点 STORY 后 43 张封面均走 `assets/covers/thumbs/*.jpg`；关卡页 `stage-cg` 仍是 `prologue.png`。点播放打开 0-0，第一句「帕弥什病毒的灾难——」，观看层 CG 仍是原图。控制台无 JS 报错。
 - 缩略图合计约 5.6MB；原封面目录仍约 117MB。
 - 截图：`.verify-shots/live-thumbs-vn-00.png`。
-- 未做 Pages 线上复验。
+- Pages `https://pokkan39.github.io/pgr-story-station/?v=thumbs-pages1`：43 张封面均走 `thumbs/`，关卡页仍是 `prologue.png`。
 
 ### Notes
 - 改动文件清单：
