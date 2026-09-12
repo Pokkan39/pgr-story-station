@@ -628,3 +628,25 @@ DATA 排队立绘不再挤成底下一排小半身，也不再发灰。五人按
   - `progress.md`：补 Pages 复验记录。
   - `.verify-shots/live-pages-perf-vn-00.png`：线上验收截图，非正式产品。
 - 回滚方式：`git revert 7e8c001` 或把站点文件还原到 `eef4f8c`。
+
+## 2026-09-12 - Task: 给 STORY 网格和 HOME 预览做封面缩略图
+
+### What was done
+给 75 张封面生成约 960px JPEG 缩略图，接到 STORY 网格和 HOME 封面预览。关卡页和观看层仍用原图。未压 DATA 立绘。
+
+### Testing
+- `node --check app.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=thumbs1`：进站仍 6 个请求。点 STORY 后 43 张封面均走 `assets/covers/thumbs/*.jpg`；关卡页 `stage-cg` 仍是 `prologue.png`。点播放打开 0-0，第一句「帕弥什病毒的灾难——」，观看层 CG 仍是原图。控制台无 JS 报错。
+- 缩略图合计约 5.6MB；原封面目录仍约 117MB。
+- 截图：`.verify-shots/live-thumbs-vn-00.png`。
+- 未做 Pages 线上复验。
+
+### Notes
+- 改动文件清单：
+  - `assets/covers/thumbs/`：75 张约 960px JPEG 缩略图。
+  - `app.js`：网格封面改走 `thumbSrc()`。
+  - `index.html`：HOME 三张封面预览改缩略图。
+  - `docs/story-station.md`、`docs/pgr-layout.md`、`docs/assets.md`：写明网格用缩略图、观看层用原图。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-thumbs-vn-00.png`：验收截图，非正式产品。
+- 回滚方式：删除 `assets/covers/thumbs/`，并把上述代码/文档还原到提交 `7d16526`。

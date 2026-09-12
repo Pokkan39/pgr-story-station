@@ -82,4 +82,4 @@ BWiki「剧情回顾」= 用户长图：深色分类页签 + 章节 CG 封面网
 - 章节封面 CG：BWiki 画册/剧情回顾公开图，仅非官方展示，版权归库洛。
 - 阅读正文：主线普通关使用本地剧情回顾存档对白；间章/活动仍是示例句。不搬语音。
 - 品牌：过境 / MINDTRACE，不套官方标识。本地缓存 key 仍为 `mindtrace.*`。演出恢复点为 `mindtrace.play`，不覆盖 notes / readings / progress / danmaku。
-- 进站不拉封面图。HOME 预览悬停或点选后再加载。主线目录、封面网格、DATA 立绘、关系网出场表进对应页再拉。封面图 `loading=lazy`。不拉 Google Fonts。
+- 进站不拉封面图。HOME 预览悬停或点选后再加载。主线目录、封面网格、DATA 立绘、关系网出场表进对应页再拉。STORY 网格和 HOME 封面预览用 `assets/covers/thumbs/`（约 960px JPEG）；关卡页和观看层仍用原图。封面图 `loading=lazy`。不拉 Google Fonts。

@@ -748,6 +748,11 @@
     return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt || "")}" loading="lazy" decoding="async">`;
   }
 
+  function thumbSrc(src) {
+    const m = String(src || "").match(/^(.*\/covers\/)([^/]+)\.[^.]+$/);
+    return m ? `${m[1]}thumbs/${m[2]}.jpg` : src;
+  }
+
   function mainStageCount() {
     if (MAIN_CATALOG.length) return MAIN_CATALOG.length;
     const listed = MAIN_CHAPTERS.reduce((n, ch) => n + ((ch.stages || []).length), 0);
@@ -1536,7 +1541,7 @@
       }
       els.editionRail.innerHTML = MAIN_CHAPTERS.map((ch) => {
         const art = ch.cg
-          ? `<span class="edition-cover__art" aria-hidden="true">${lazyImg(ch.cg)}</span>`
+          ? `<span class="edition-cover__art" aria-hidden="true">${lazyImg(thumbSrc(ch.cg))}</span>`
           : `<span class="edition-cover__art edition-cover__art--empty" aria-hidden="true"></span>`;
         return `
         <button type="button" class="edition-cover${ch.cg ? "" : " is-placeholder"}" data-chapter="${escapeHtml(ch.id)}" aria-pressed="false" aria-label="章节 ${escapeHtml(chapterLabel(ch))}">
@@ -1558,7 +1563,7 @@
       }
       els.editionRail.innerHTML = INTERLUDES.map((item) => {
         const art = item.cg
-          ? `<span class="edition-cover__art" aria-hidden="true">${lazyImg(item.cg)}</span>`
+          ? `<span class="edition-cover__art" aria-hidden="true">${lazyImg(thumbSrc(item.cg))}</span>`
           : `<span class="edition-cover__art edition-cover__art--empty" aria-hidden="true"></span>`;
         const person = item.person && PEOPLE[item.person] ? PEOPLE[item.person].name : "间章";
         return `
@@ -1583,7 +1588,7 @@
       const cg = node.cg || "./assets/covers/prologue.png";
       return `
         <button type="button" class="edition-cover" data-node="${escapeHtml(node.id)}" aria-pressed="false" aria-label="章节封面 ${escapeHtml(node.code)} ${escapeHtml(node.title)}">
-          <span class="edition-cover__art" aria-hidden="true">${lazyImg(cg)}</span>
+          <span class="edition-cover__art" aria-hidden="true">${lazyImg(thumbSrc(cg))}</span>
           <span class="edition-cover__code">${escapeHtml(node.code)}</span>
           <span class="edition-cover__type">${escapeHtml(node.type)}</span>
           <strong class="edition-cover__title">${escapeHtml(node.title)}</strong>
