@@ -609,3 +609,22 @@ DATA 排队立绘不再挤成底下一排小半身，也不再发灰。五人按
   - `progress.md`：本轮记录。
   - `.verify-shots/live-perf-home.png`、`live-perf-vn-00.png`：验收截图，非正式产品。
 - 回滚方式：把上述文件还原到提交 `eef4f8c`。不触碰 `story/` 与封面原图。
+
+## 2026-09-12 - Task: 推送进站性能改动并做 Pages 复验
+
+### What was done
+把进站性能改动提交并推到 `origin/main`。Pages 构建完成后复验：线上首屏不再拉封面、立绘和 Google Fonts；点 STORY 后 0-0 仍可播。
+
+### Testing
+- 提交 `7e8c001` 已到 `origin/main`。
+- 浏览器 `https://pokkan39.github.io/pgr-story-station/?v=pages-perf1`：SKIP 后 6 个站点请求 + favicon 404，无封面、无立绘、无 Google Fonts、无 `catalog.json`。进度 `0 / 868`。
+- 点 STORY 后 43 张封面均 `loading=lazy`。点播放打开 0-0，第一句「帕弥什病毒的灾难——」。控制台仅历史 favicon 404。
+- 截图：`.verify-shots/live-pages-perf-vn-00.png`。
+- 本机直连 GitHub 超时，走本机 `127.0.0.1:7892` 代理推送成功。未压封面缩略图。
+
+### Notes
+- 改动文件清单：
+  - 无新增代码文件；本轮只推送上一轮性能改动。
+  - `progress.md`：补 Pages 复验记录。
+  - `.verify-shots/live-pages-perf-vn-00.png`：线上验收截图，非正式产品。
+- 回滚方式：`git revert 7e8c001` 或把站点文件还原到 `eef4f8c`。
