@@ -654,16 +654,32 @@
     return NODES.filter((n) => n.group === key);
   }
 
-  async function loadStoryData() {
-    const [catalog, people, glossary] = await Promise.all([
+  let storyDataPromise = null;
+  let peoplePromise = null;
+
+  function loadStoryData() {
+    if (storyDataPromise) return storyDataPromise;
+    storyDataPromise = Promise.all([
       fetch("./story/catalog.json").then((res) => res.json()),
-      fetch("./story/people.json").then((res) => res.json()),
       fetch("./story/glossary.json").then((res) => res.json()).catch(() => ({})),
-    ]);
-    MAIN_CATALOG = Array.isArray(catalog) ? catalog.map(hydrateCatalog) : [];
-    STORY_PEOPLE = Array.isArray(people) ? people : [];
-    Object.assign(GLOSSARY, glossary || {});
-    GLOSSARY_KEYS = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+    ]).then(([catalog, glossary]) => {
+      MAIN_CATALOG = Array.isArray(catalog) ? catalog.map(hydrateCatalog) : [];
+      Object.assign(GLOSSARY, glossary || {});
+      GLOSSARY_KEYS = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+      setProgressUI();
+      return MAIN_CATALOG;
+    });
+    return storyDataPromise;
+  }
+
+  function ensurePeople() {
+    if (STORY_PEOPLE.length) return Promise.resolve(STORY_PEOPLE);
+    if (peoplePromise) return peoplePromise;
+    peoplePromise = fetch("./story/people.json").then((res) => res.json()).catch(() => []).then((people) => {
+      STORY_PEOPLE = Array.isArray(people) ? people : [];
+      return STORY_PEOPLE;
+    });
+    return peoplePromise;
   }
 
   async function ensureScript(node) {
@@ -728,8 +744,18 @@
       .replace(/'/g, "&#39;");
   }
 
+  function lazyImg(src, alt) {
+    return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt || "")}" loading="lazy" decoding="async">`;
+  }
+
+  function mainStageCount() {
+    if (MAIN_CATALOG.length) return MAIN_CATALOG.length;
+    const listed = MAIN_CHAPTERS.reduce((n, ch) => n + ((ch.stages || []).length), 0);
+    return listed || NODES.length;
+  }
+
   function setProgressUI() {
-    const total = MAIN_CATALOG.length || NODES.length;
+    const total = mainStageCount();
     const count = state.progress.readIds.length;
     const pct = total ? Math.round((count / total) * 100) : 0;
     els.progressValue.textContent = `${count} / ${total}`;
@@ -1052,7 +1078,7 @@
     els.vnCast.innerHTML = ids.map((id) => {
       const construct = CONSTRUCTS[id];
       const on = id === active ? " is-speaking" : " is-wait";
-      return `<figure class="vn__actor${on}" data-construct="${escapeHtml(id)}"><img src="${escapeHtml(construct.src)}" alt="${escapeHtml(construct.alt)}"></figure>`;
+      return `<figure class="vn__actor${on}" data-construct="${escapeHtml(id)}">${lazyImg(construct.src, construct.alt)}</figure>`;
     }).join("");
     els.vnCast.setAttribute("aria-hidden", ids.length ? "false" : "true");
   }
@@ -1400,11 +1426,13 @@
 
   function renderLineup() {
     if (!els.heroLineup) return;
+    if (els.heroLineup.dataset.ready === "1") return;
+    els.heroLineup.dataset.ready = "1";
     els.heroLineup.innerHTML = SELECT_UNITS.map((id, i) => {
       const unit = CONSTRUCTS[id];
       const frame = String((unit.frame || "").split("/")[1] || unit.frame).trim();
       return `<button type="button" class="hero-unit" data-construct="${escapeHtml(id)}" style="--i:${i}" aria-pressed="false" aria-label="${escapeHtml(unit.cn + " · " + frame)}">
-        <img src="${escapeHtml(unit.src)}" alt="${escapeHtml(unit.alt)}">
+        ${lazyImg(unit.src, unit.alt)}
         <span class="hero-unit__meta"><strong>${escapeHtml(unit.cn)}</strong><span>${escapeHtml(String(frame).trim())}</span></span>
       </button>`;
     }).join("");
@@ -1480,21 +1508,23 @@
     if (els.editionRail) els.editionRail.hidden = isNet;
     if (els.networkPanel) els.networkPanel.hidden = !isNet;
     if (isNet) {
-      renderNetwork();
+      loadStoryData().then(() => ensurePeople()).then(() => renderNetwork());
       return;
     }
-    renderEditionRail();
-    if (tab === "main") {
-      selectChapter(state.activeChapterId || "ch00");
-      return;
-    }
-    if (tab === "interlude") {
-      selectInterlude(state.activeInterludeId || (INTERLUDES[0] && INTERLUDES[0].id));
-      return;
-    }
-    renderStageList();
-    const first = nodesInTab(tab)[0];
-    if (first) selectNode(first.id);
+    loadStoryData().then(() => {
+      renderEditionRail();
+      if (tab === "main") {
+        selectChapter(state.activeChapterId || "ch00");
+        return;
+      }
+      if (tab === "interlude") {
+        selectInterlude(state.activeInterludeId || (INTERLUDES[0] && INTERLUDES[0].id));
+        return;
+      }
+      renderStageList();
+      const first = nodesInTab(tab)[0];
+      if (first) selectNode(first.id);
+    });
   }
 
   function renderEditionRail() {
@@ -1506,7 +1536,7 @@
       }
       els.editionRail.innerHTML = MAIN_CHAPTERS.map((ch) => {
         const art = ch.cg
-          ? `<span class="edition-cover__art" aria-hidden="true"><img src="${escapeHtml(ch.cg)}" alt=""></span>`
+          ? `<span class="edition-cover__art" aria-hidden="true">${lazyImg(ch.cg)}</span>`
           : `<span class="edition-cover__art edition-cover__art--empty" aria-hidden="true"></span>`;
         return `
         <button type="button" class="edition-cover${ch.cg ? "" : " is-placeholder"}" data-chapter="${escapeHtml(ch.id)}" aria-pressed="false" aria-label="章节 ${escapeHtml(chapterLabel(ch))}">
@@ -1528,7 +1558,7 @@
       }
       els.editionRail.innerHTML = INTERLUDES.map((item) => {
         const art = item.cg
-          ? `<span class="edition-cover__art" aria-hidden="true"><img src="${escapeHtml(item.cg)}" alt=""></span>`
+          ? `<span class="edition-cover__art" aria-hidden="true">${lazyImg(item.cg)}</span>`
           : `<span class="edition-cover__art edition-cover__art--empty" aria-hidden="true"></span>`;
         const person = item.person && PEOPLE[item.person] ? PEOPLE[item.person].name : "间章";
         return `
@@ -1553,7 +1583,7 @@
       const cg = node.cg || "./assets/covers/prologue.png";
       return `
         <button type="button" class="edition-cover" data-node="${escapeHtml(node.id)}" aria-pressed="false" aria-label="章节封面 ${escapeHtml(node.code)} ${escapeHtml(node.title)}">
-          <span class="edition-cover__art" aria-hidden="true"><img src="${escapeHtml(cg)}" alt=""></span>
+          <span class="edition-cover__art" aria-hidden="true">${lazyImg(cg)}</span>
           <span class="edition-cover__code">${escapeHtml(node.code)}</span>
           <span class="edition-cover__type">${escapeHtml(node.type)}</span>
           <strong class="edition-cover__title">${escapeHtml(node.title)}</strong>
@@ -1720,7 +1750,7 @@
       const src = construct ? construct.src : "";
       return `
         <button type="button" class="net-node" data-person="${escapeHtml(p.id)}" style="left:${p.x}%;top:${p.y}%;">
-          ${src ? `<img src="${escapeHtml(src)}" alt="">` : `<span class="net-node__dot"></span>`}
+          ${src ? lazyImg(src) : `<span class="net-node__dot"></span>`}
           <strong>${escapeHtml(p.name)}</strong>
           <span>${escapeHtml(p.frame || "指挥")}</span>
         </button>`;
@@ -2075,6 +2105,7 @@
         const href = link.getAttribute("href") || "";
         if (href === "#network") setTab("network");
         if (href === "#story") setTab("main");
+        if (href === "#operator") renderLineup();
         document.querySelectorAll(".site-rail__item").forEach((item) => {
           item.classList.toggle("is-active", item === link);
         });
@@ -2106,6 +2137,7 @@
         previewOp(card);
         const go = card.getAttribute("data-go");
         if (go === "story") setTab("main");
+        if (go === "data") renderLineup();
         if (go === "net") setTab("network");
         document.querySelectorAll(".site-rail__item").forEach((item) => {
           const href = item.getAttribute("href") || "";
@@ -2247,9 +2279,11 @@
     });
     if (els.continueBtn) {
       els.continueBtn.addEventListener("click", () => {
-        const target = state.play.nodeId || state.progress.lastNodeId || (MAIN_CATALOG[0] && MAIN_CATALOG[0].id) || NODES[0].id;
-        const lineIndex = target === state.play.nodeId ? state.play.lineIndex || 0 : 0;
-        openReader(target, { lineIndex });
+        loadStoryData().then(() => {
+          const target = state.play.nodeId || state.progress.lastNodeId || (MAIN_CATALOG[0] && MAIN_CATALOG[0].id) || NODES[0].id;
+          const lineIndex = target === state.play.nodeId ? state.play.lineIndex || 0 : 0;
+          openReader(target, { lineIndex });
+        });
       });
     }
 
@@ -2263,8 +2297,10 @@
     });
 
     els.searchOpen.addEventListener("click", () => {
-      openDialog(els.searchDialog, els.searchInput);
-      runSearch(els.searchInput.value);
+      loadStoryData().then(() => {
+        openDialog(els.searchDialog, els.searchInput);
+        runSearch(els.searchInput.value);
+      });
     });
     els.publishOpen.addEventListener("click", () => openCompose({ mode: "reading" }));
     if (els.boardPostBtn) els.boardPostBtn.addEventListener("click", () => openCompose({ mode: "reading" }));
@@ -2397,8 +2433,10 @@
         if (els.searchDialog.open) {
           els.searchInput.focus();
         } else {
-          openDialog(els.searchDialog, els.searchInput);
-          runSearch(els.searchInput.value);
+          loadStoryData().then(() => {
+            openDialog(els.searchDialog, els.searchInput);
+            runSearch(els.searchInput.value);
+          });
         }
       }
     });
@@ -2414,26 +2452,12 @@
     setAutoOn(state.autoOn);
     setSkipRead(state.skipRead);
     setLogOpen(false);
-    renderLineup();
     setConstruct(null);
     startLinkGate();
-    loadStoryData().then(() => {
-      setProgressUI();
-      setTab("main");
-      if (state.play.nodeId || state.progress.lastNodeId) {
-        const resumeId = state.play.nodeId || state.progress.lastNodeId;
-        const host = MAIN_CHAPTERS.find((ch) => (ch.stages || []).some((s) => s.nodeId === resumeId));
-        if (host) state.activeChapterId = host.id;
-        if (getNode(resumeId)) {
-          selectNode(resumeId);
-          renderStageList();
-        }
-      }
-      markMapReadState();
-    }).catch(() => {
-      setProgressUI();
-      setTab("main");
-    });
+    setProgressUI();
+    const hash = (location.hash || "").slice(1);
+    if (hash === "story" || hash === "network") setTab(hash === "network" ? "network" : "main");
+    if (hash === "operator") renderLineup();
   }
 
   function startLinkGate() {

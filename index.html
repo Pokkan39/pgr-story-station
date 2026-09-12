@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="过境 / MINDTRACE — 非官方剧情回顾与阅读演示站。演示数据，非官方档案。">
   <title>过境 · MINDTRACE</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="is-linking">
@@ -118,7 +115,7 @@
             </div>
           </div>
           <aside class="command-preview" id="command-preview" aria-hidden="true">
-            <img id="command-preview-img" src="./assets/covers/prologue.png" alt="">
+            <img id="command-preview-img" alt="" decoding="async">
             <p class="command-preview__code" id="command-preview-code">01</p>
           </aside>
         </div>
@@ -173,7 +170,7 @@
 
       <section class="stage-section" id="stage" aria-labelledby="panel-title">
         <div class="stage-hero" id="node-panel">
-          <img id="stage-cg" src="./assets/covers/prologue.png" alt="">
+          <img id="stage-cg" alt="" loading="lazy" decoding="async">
           <div class="stage-hero__copy" aria-live="polite">
             <p class="eyebrow" id="panel-kicker">00 序章</p>
             <span class="node-panel__type" id="panel-type">主线</span>
@@ -256,7 +253,7 @@
   <dialog class="dialog dialog--vn" id="reader-dialog" aria-labelledby="reader-title">
     <div class="vn" id="vn-stage">
       <div class="vn__cg" id="vn-cg">
-        <img id="vn-cg-img" src="./assets/covers/prologue.png" alt="">
+        <img id="vn-cg-img" alt="" decoding="async">
       </div>
       <div class="vn__cast" id="vn-cast" data-count="0" aria-hidden="true"></div>
       <div class="vn__danmaku" id="vn-danmaku" aria-hidden="true"></div>
@@ -303,7 +300,7 @@
       </aside>
       <div class="vn__dialogue" id="vn-box" data-kind="narration">
         <div class="vn__image" id="vn-image" hidden>
-          <img id="vn-portrait" src="./assets/dialogue/lucia-lotus-icon.png" alt="" width="60" height="60" hidden>
+          <img id="vn-portrait" alt="" width="60" height="60" hidden decoding="async">
         </div>
         <div class="vn__content">
           <div class="vn__name" id="vn-name"></div>

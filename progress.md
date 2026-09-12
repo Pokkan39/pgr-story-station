@@ -587,3 +587,25 @@ DATA 排队立绘不再挤成底下一排小半身，也不再发灰。五人按
   - `progress.md`：本轮记录。
   - `.verify-shots/live-main43-*.png`：验收截图，非正式产品。
 - 回滚方式：还原到提交 `b9dbc30`；删除 `story/` 与 `tools/import-main.mjs`。不触碰 F 盘剧情回顾原目录。
+
+## 2026-09-12 - Task: 查清进站卡顿来源并改掉最重的加载
+
+### What was done
+查清进站卡点后，把最重的加载从首屏拿掉：不再一次铺 43 张封面和 DATA 立绘，不再拉 Google Fonts，HOME 预览、关卡页 CG、观看层默认图也不再进站就请求。主线目录和关系网出场表改到进对应页再拉。封面改懒加载。
+
+### Testing
+- `node --check app.js`、`node --check chapters.js`、`node --check interludes.js` 通过。
+- 浏览器 `http://127.0.0.1:4173/?v=perf4`：SKIP 后首屏 6 个请求（`styles.css` / `tokens.css` / `chapters.js` / `interludes.js` / `app.js`），无封面、无立绘、无 Google Fonts、无 `catalog.json`。进度显示 `0 / 868`。
+- `http://127.0.0.1:4173/?v=perf3`：点 STORY 后才拉 `catalog.json` / `glossary.json`；43 张封面均 `loading=lazy`。点播放打开 0-0，第一句「帕弥什病毒的灾难——」。控制台无 JS 报错。
+- 截图：`.verify-shots/live-perf-home.png`、`.verify-shots/live-perf-vn-00.png`。
+- 未压封面缩略图，未做 Pages 线上复验。
+
+### Notes
+- 改动文件清单：
+  - `index.html`：去掉 Google Fonts；HOME / 关卡页 / 观看层默认图不再写 src。
+  - `app.js`：进站不拉目录和立绘；STORY / 搜索 / 继续阅读才拉 catalog；封面与立绘懒加载。
+  - `styles.css`：无 src 的图隐藏；封面 `content-visibility`。
+  - `docs/story-station.md`、`docs/pgr-layout.md`、`docs/assets.md`：写明进站不拉封面。
+  - `progress.md`：本轮记录。
+  - `.verify-shots/live-perf-home.png`、`live-perf-vn-00.png`：验收截图，非正式产品。
+- 回滚方式：把上述文件还原到提交 `eef4f8c`。不触碰 `story/` 与封面原图。

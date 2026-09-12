@@ -32,6 +32,10 @@ svg {
   max-width: 100%;
 }
 
+img:not([src]) {
+  display: none;
+}
+
 button,
 input,
 textarea,
@@ -1603,6 +1607,8 @@ body.is-linking {
   cursor: pointer;
   overflow: hidden;
   scroll-snap-align: start;
+  content-visibility: auto;
+  contain-intrinsic-size: 16rem 9rem;
   transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
